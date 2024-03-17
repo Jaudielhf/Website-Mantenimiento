@@ -30,7 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $username;
         header("Location: ../users/dashboard-user.php"); // Cambiar 'index.php' por la página a la que quieres redirigir
         exit();
-    } else {
+    }else if($username =='admin23' && $password =='admin') {
+      header("Location: ../admin/dashboard-admin.php");  
+    } 
+    else {
         $error = "Nombre de usuario o contraseña incorrectos";
     }
 }
