@@ -1,6 +1,6 @@
 .login-box {
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     width: 400px;
     padding: 40px;
@@ -176,4 +176,11 @@
     background: transparent;
     color: #aaa;
     border-radius: 5px;
+  }
+  button{
+    border: none;
+    outline: none;
+    background-color: #27272700;
+    color: gray;
+    letter-spacing: 3px
   }
