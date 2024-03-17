@@ -9,16 +9,8 @@
 <body>
     
     <div class="login-box">
-        <p>Sign Up</p>
+        <p>Login</p>
         <form>
-          <div class="user-box">
-            <input required="" name="" type="text">
-            <label>Nombre</label>
-          </div>
-          <div class="user-box">
-            <input required="" name="" type="text">
-            <label>Apellido</label>
-          </div>
           <div class="user-box">
             <input required="" name="" type="text">
             <label>Email</label>
@@ -35,7 +27,7 @@
             Submit
           </a>
         </form>
-        <p>Iniciar sesion <a href="./login.html" class="a2">Login</a></p>
+        <p>Don't have an account? <a href="./sign.php" class="a2">Sign up!</a></p>
       </div>
 
 </body>
