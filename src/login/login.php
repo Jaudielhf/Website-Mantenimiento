@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Sign Up</title>
 </head>
 <body>
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $username;
         header("Location: ../users/dashboard-user.php"); // Cambiar 'index.php' por la página a la que quieres redirigir
         exit();
-        
+
     }else if($username =='admin23' && $password =='admin') {
       header("Location: ../admin/dashboard-admin.php");  
 
