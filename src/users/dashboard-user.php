@@ -35,8 +35,27 @@
         </li>
         
       </ul>
-     
+      <div class="navbar-nav">
+        <div class="nav-item">
+            <?php
+            // Iniciar sesión (si no lo has hecho aún)
+            session_start();
+
+            // Verificar si el nombre de usuario/empleado está almacenado en la variable de sesión
+            if (isset($_SESSION['username'])) {
+                $username = $_SESSION['username'];
+                echo "<p class='nav-link'>Bienvenido, $username</p>";
+            } else {
+                echo "<a class='nav-link' href=''>Iniciar sesión</a>";
+            }
+            ?>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" href="./../login/logout.php">Cerrar sesión</a>
+        </div>
     </div>
+    </div>
+
   </div>
 </nav>
 

@@ -21,7 +21,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                       
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">Citas</a>
                         </li>
@@ -31,12 +31,13 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="./php/admin-empleados.php">Empleados</a></li>
-                                <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                                <li><a class="dropdown-item" href="./php/admin-user.php">Usuarios</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item" href="#">Servicios</a></li>
                             </ul>
+
                         </li>
                     </ul>
                     

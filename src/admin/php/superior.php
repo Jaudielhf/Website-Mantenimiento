@@ -18,7 +18,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="./admin-empleados.php">Empleados</a></li>
-                                <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                                <li><a class="dropdown-item" href="./admin-user.php">Usuarios</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

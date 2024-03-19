@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+
     // Consulta SQL para verificar las credenciales del usuario
     $sql = "SELECT * FROM usuarios WHERE username = '$username' AND password = '$password'";
     $consultaEm="SELECT * FROM empleados WHERE username = '$username' AND password = '$password'";

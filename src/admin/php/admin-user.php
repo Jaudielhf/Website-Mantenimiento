@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bootstrap-5.3.3-dist/css/bootstrap.css">
     <script src="/bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-    <title>Empleados</title>
+    <title>Usuarios</title>
 </head>
 
 <body>
@@ -16,12 +16,12 @@
     require_once "../../MYSQL/conexion.php";
 
     // Consulta SQL para obtener los datos de la tabla
-    $sql = "SELECT * FROM empleados";
+    $sql = "SELECT * FROM usuarios";
     $resultado = mysqli_query($conn, $sql);
 
     ?>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACION DE EMPLEADOS</h1>
+        <h1>VENTANA DE ADMINISTRACION DE USUARIOS</h1>
         <div class="row mt-5">
             <div class="col-sm-6 col-md-8">
                 <table class="table table-striped table-hover">
@@ -43,7 +43,7 @@
                             // Iterar sobre cada fila de resultados
                             while ($fila = mysqli_fetch_assoc($resultado)) {
                                 echo "<tr>";
-                                echo "<th scope='row'>" . $fila['id_empleado'] . "</th>";
+                                echo "<th scope='row'>" . $fila['id_usuario'] . "</th>";
                                 echo "<td>" . $fila['nombre'] . "</td>";
                                 echo "<td>" . $fila['apellido_pat'] . "</td>";
                                 echo "<td>" . $fila['apellido_mat'] . "</td>";
@@ -112,12 +112,12 @@
         $correo = $_POST['email'];
         $contraseña = $_POST['pass'];
         $telefono = $_POST['tel'];
-        $sql = "INSERT INTO empleados (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
+        $sql = "INSERT INTO usuarios (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
 
         $resultado = mysqli_query($conn, $sql);
         if ($resultado) {
-            echo "<script>alert('Empleado registrado correctamente');</script>";
-            echo "<script>window.location.href='./admin-empleados.php';</script>";
+            echo "<script>alert('Usuario registrado correctamente');</script>";
+            echo "<script>window.location.href='./admin-user.php';</script>";
         } else {
             echo "<p>Error al registrar usuario</p>";
         }
