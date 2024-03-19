@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php 
-            require_once "../vistas/superior.php";
+            require_once "./php/superior.php";
         ?>
 
 </body>

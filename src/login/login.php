@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/sign.css">
     <title>Sign Up</title>
 </head>
 <body>
@@ -21,10 +21,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Consulta SQL para verificar las credenciales del usuario
     $sql = "SELECT * FROM usuarios WHERE username = '$username' AND password = '$password'";
-    $consultaEm="SELECT * FROM empleados WHERE username = '$username' AND password = '$password";
+    $consultaEm="SELECT * FROM empleados WHERE username = '$username' AND password = '$password'";
     $resultado = mysqli_query($conn, $sql);
     $EmResult=mysqli_query($conn, $consultaEm);
     // Verificar si se encontró un usuario con las credenciales proporcionadas
+    if(mysqli_num_rows($EmResult) == 1)
+    {
+      session_start();
+      $_SESSION['username'] = $username;
+      header("Location: ../employed/dashboard-emp.php");
+      exit();
+    }else{
+      $error = "Nombre de usuario o contraseña incorrectos";
+    }
+
     if (mysqli_num_rows($resultado) == 1) {
         // Iniciar sesión y redirigir a la página de inicio
         session_start();
@@ -35,12 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }else if($username =='admin23' && $password =='admin') {
       header("Location: ../admin/dashboard-admin.php");  
 
-    }else if(mysqli_num_rows($EmResult)){
-      session_start();
-      $_SESSION['username'] = $username;
-      header("Location: ../employed/dashboard-emp.php");
-      exit();
-    } 
+    }
     else {
         $error = "Nombre de usuario o contraseña incorrectos";
     }
