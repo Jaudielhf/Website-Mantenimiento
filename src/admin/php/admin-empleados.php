@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bootstrap-5.3.3-dist/css/bootstrap.css">
     <script src="/bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+    <script src="../js/script.js"></script>
     <title>Empleados</title>
 </head>
 
@@ -50,8 +51,8 @@
                                 echo "<td>" . $fila['email'] . "</td>";
                                 echo "<td>" . $fila['telefono'] . "</td>";
                                 echo "<td>";
-                                echo "<button>Eliminar</button>";
-                                echo "<button>Actualizar</button>";
+                                echo "<button class='btn btn-danger eliminar mb-2' data-id='".$fila['id_empleado'] ."'>Eliminar</button>";
+                                echo "<button class='btn btn-warning'>Actualizar</button>";
                                 echo "</td>";
                                 echo "</tr>";
                             }
