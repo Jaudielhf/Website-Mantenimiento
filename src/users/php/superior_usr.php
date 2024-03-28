@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="../dashboard-user.php">Inicio</a>
+    <a class="navbar-brand" href="../index.php">Inicio</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,10 +25,26 @@
         </li>
         
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="navbar-nav">
+          <div class="nav-item">
+            <?php
+            // Iniciar sesión (si no lo has hecho aún)
+            session_start();
+
+            // Verificar si el nombre de usuario/empleado está almacenado en la variable de sesión
+            if (isset($_SESSION['username'])) {
+              $username = $_SESSION['username'];
+              echo "<a class='nav-link' href='./php/editar_usuario.php'>Bienvenido, $username</a>";
+            } else {
+              echo "<a class='nav-link' href='./../login/sign.php'>Iniciar sesión</a>";
+            }
+            ?>
+          </div>
+          <div class="nav-item">
+
+            <a class="nav-link" href="../../login/logout.php">Cerrar sesión</a>
+          </div>
+        </div>
     </div>
   </div>
 </nav>

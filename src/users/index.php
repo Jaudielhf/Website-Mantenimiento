@@ -14,7 +14,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="./dashboard-user.php">Inicio</a>
+      <a class="navbar-brand" href="./index.php">Inicio</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -78,9 +78,13 @@
           <a href="./php/citas.php" class="btn btn-primary">Agendar Cita</a>
         </div>
       </div>
+
     </div>
+
   </div>
+  <hr>
   <div class="container">
+    
     <div class="row text-center ">
       <h1 class="">Nuestros Servicios</h1>
 
@@ -94,9 +98,9 @@
         while ($row = mysqli_fetch_array($resultado)) {
 
 
-          echo "<div class='card mt-5'>";
+          echo "<div class='card mt-4'>";
           echo "<div class='image'>
-                <img src='../img/". $row['imagen']. "' class='image' alt='...'>
+                <img src='../img/" . $row['imagen'] . "' class='image' alt='...'>
     
           </div>";
           echo "<div class='content'>";

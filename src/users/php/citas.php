@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../bootstrap-5.3.3-dist/css/bootstrap.css">
-   
+
     <script src="../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-   
+
     <title>Agendar</title>
 </head>
 
@@ -16,6 +16,7 @@
     require_once "./superior_usr.php";
     ?>
 
+
     <div class="container">
         <div class="row align-items-start">
             <div class="col">
@@ -23,7 +24,7 @@
                     <h2>
                         Agendar Cita
                     </h2>
-                    <form method="POST" action="php/agendar.php" class="row g-3">
+                    <form method="POST" action="agendar.php" class="row g-3">
                         <div class="input-group">
                             <span class="input-group-text">Nombre completo</span>
                             <input type="text" aria-label="Nombre" class="form-control">
@@ -62,10 +63,73 @@
                             <label for="floatingTextarea2">Escriba una breve Descripcion para la cita</label>
                         </div>
 
-                        <div class="d-grid gap-2 d-md-block">
-                        <button type="submit" class="btn btn-outline-success">Enviar</button>
+                        <?php
+
+
+                        // Verificar si el nombre de usuario/empleado está almacenado en la variable de sesión
+                        if (isset($_SESSION['username'])) {
+                            $username = $_SESSION['username'];
+                            echo "
+                            <div class='d-grid gap-2 d-md-block'>
+                            <!-- Button trigger modal -->
+                            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>
+                                Agendar cita
+                            </button>
+
+                            <!-- Modal -->
+                            <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <h1 class='modal-title fs-5' id='exampleModalLabel'>!Atencion¡</h1>
+                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                        </div>
+                                        <div class='modal-body'>
+                                            Esta a punto de agendar una cita, antes de enviar, favor de verificar sus datos para mejorar la experiencia en la estacion de servicio seleccionada
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                            <button type='submit' class='btn btn-outline-success'>Enviar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        
+                            ";
+                        } else {
+                            echo "
+                            <div class='d-grid gap-2 d-md-block'>
+                            <!-- Button trigger modal -->
+                            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>
+                                Agendar cita
+                            </button>
+
+                            <!-- Modal -->
+                            <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <h1 class='modal-title fs-5' id='exampleModalLabel'>!Atencion¡</h1>
+                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                        </div>
+                                        <div class='modal-body'>
+                                            Para agendar una cita, es necesario tener una cuenta en el sistema, registrate, es gratis
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                            <a href='./../../login/sign.php' class='btn btn-outline-success'>Registrarse</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                            ";
+                            }
+
+
+                        ?>
                     </form>
                 </div>
             </div>

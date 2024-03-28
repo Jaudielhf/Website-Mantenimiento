@@ -56,13 +56,15 @@
                             <div class="col">
                                 <article class="card">
                                     <div class="card-int">
-                                        <span class="card__span">Category</span>
-                                        <div class="img"></div>
+                                        <span class="card__span">Usuarios</span>
+                                        <div class="img">
+                                            img
+                                        </div>
                                         <div class="card-data">
-                                            <p class="title">This is a test title
+                                            <p class="title">Administrar Usuarios
                                             </p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                            <button class="button">More info</button>
+                                            <p>En esta seccion podra administrar a los usuarios registrados en la pagina.</p>
+                                            <button onclick="location.href='./php/admin-user.php'" class="button">More info</button>
                                         </div>
                                     </div>
                                 </article>
