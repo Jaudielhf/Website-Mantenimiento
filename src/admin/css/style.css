@@ -1,7 +1,7 @@
 .card {
     width: 300px;
     padding: 10px;
-    background-image: linear-gradient(to right bottom, #5d0391, #7b05ae, #9b05cb, #bd00e7, #bd00e7);
+    background-image: linear-gradient(to right bottom, #083b5f, #0961a0, #1978bc, #2f85c3, #38acff);
     background-size: 200% 200%;
     border-radius: 12px;
   }
@@ -46,7 +46,7 @@
   button {
     width: 100%;
     margin-top: 15px;
-    background-image: linear-gradient(to right bottom, #5d0391, #7b05ae, #9b05cb, #bd00e7, #bd00e7);
+    background-image: linear-gradient(to right bottom, #083b5f, #0961a0, #1978bc, #2f85c3, #38acff);
     background-size: 200% 200%;
     border: none;
     padding: 8px 10px;

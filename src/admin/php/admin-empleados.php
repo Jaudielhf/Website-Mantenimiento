@@ -24,7 +24,7 @@
     <div class="container mt-4">
         <h1>VENTANA DE ADMINISTRACION DE EMPLEADOS</h1>
         <div class="row mt-5">
-            <div class="col-sm-4 col-md-8">
+            <div class="col-sm-4 col-md-9">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -67,8 +67,8 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="col-6 col-md-3 m-4">
+                            
+            <div class="col-8 col-md-3 ">
                 <form action="" method="post">
                     <div class="row g-3">
                         <div class="col ">

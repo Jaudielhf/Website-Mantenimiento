@@ -25,6 +25,9 @@
                                 <li><a class="dropdown-item" href="#">Servicios</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./php/superior.php">Realizar Pago</a>
+                        </li>
                     </ul>
                     
                 </div>
