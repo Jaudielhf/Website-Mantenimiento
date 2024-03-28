@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Iniciar sesión y redirigir a la página de inicio
         session_start();
         $_SESSION['username'] = $username;
-        header("Location: ../users/dashboard-user.php"); // Cambiar 'index.php' por la página a la que quieres redirigir
+        header("Location: ../users/index.php"); // Cambiar 'index.php' por la página a la que quieres redirigir
         exit();
 
     }else if($username =='admin23' && $password =='admin') {
@@ -76,7 +76,13 @@ $conn->close();
             <button type="submit">Submit</button>
           </a>
         </form>
-        <p>Don't have an account? <a href="./sign.php" class="a2">Sign up!</a></p>
+       
+        <p>Don't have an account? <a href="./sign.php" class="a2">Sign up!</a>
+      <br>
+      <br>
+      Olvidaste tu contraseña? <a href="./recuperar_pw.php" class="a2"> Recuperala aqui</a>
+    </p>
+    
       </div>
 
 </body>

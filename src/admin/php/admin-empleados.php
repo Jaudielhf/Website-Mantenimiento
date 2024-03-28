@@ -24,7 +24,7 @@
     <div class="container mt-4">
         <h1>VENTANA DE ADMINISTRACION DE EMPLEADOS</h1>
         <div class="row mt-5">
-            <div class="col-sm-6 col-md-8">
+            <div class="col-sm-4 col-md-8">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -34,6 +34,8 @@
                             <th scope="col">Apellido Materno</th>
                             <th scope="col">Correo Electronico</th>
                             <th scope="col">Telefono</th>
+                            <th scope="col">Hora Entrada</th>
+                            <th scope="col">Hora Salida</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -50,6 +52,8 @@
                                 echo "<td>" . $fila['apellido_mat'] . "</td>";
                                 echo "<td>" . $fila['email'] . "</td>";
                                 echo "<td>" . $fila['telefono'] . "</td>";
+                                echo "<td>" . $fila['hora_entrada']."</td>";
+                                echo "<td>".$fila['hora_salida']."</td>";
                                 echo "<td>";
                                 echo "<button class='btn btn-danger eliminar mb-2' data-id='".$fila['id_empleado'] ."'>Eliminar</button>";
                                 echo "<button class='btn btn-warning'>Actualizar</button>";
@@ -64,7 +68,7 @@
                 </table>
             </div>
 
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3 m-4">
                 <form action="" method="post">
                     <div class="row g-3">
                         <div class="col ">
@@ -95,6 +99,14 @@
                             <input type="text" class="form-control" placeholder="Telefono" name="tel">
                         </div>
                     </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col">
+                            <input type="time" class="form-control" placeholder="Hora Entrada" name="Entrada" step="1">
+                        </div>
+                        <div class="col">
+                            <input type="time" class="form-control" placeholder="Hora Salida" name="Salida" step="1">
+                        </div>
+                    </div>
                     <div class="row g-3 mt-3">
                         <div class="col">
                             <button type="submit" class="btn btn-primary">Agregar</button>
@@ -113,7 +125,9 @@
         $correo = $_POST['email'];
         $contraseña = $_POST['pass'];
         $telefono = $_POST['tel'];
-        $sql = "INSERT INTO empleados (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
+        $hora_entrada = $_POST['Entrada'];
+        $hora_salida = $_POST['Salida'];
+        $sql = "INSERT INTO empleados (nombre, apellido_pat, apellido_mat, email, username, password, telefono, hora_entrada, hora_salida) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono', '$hora_entrada', '$hora_salida')";
 
         $resultado = mysqli_query($conn, $sql);
         if ($resultado) {

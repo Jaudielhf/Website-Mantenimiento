@@ -73,6 +73,7 @@ $conn->close();
             <button type="submit">Submit</button>
           </a>
         </form>
+        
         <p>Iniciar sesion <a href="./login.php" class="a2">Login</a></p>
       </div>
 
