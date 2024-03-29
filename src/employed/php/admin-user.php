@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-    <script src="../js/script.js"></script>
-    <title>Empleados</title>
+    <script src="../js/script-admuser.js"></script>
+    <title>Usuarios</title>
 </head>
 
 <body>
@@ -17,14 +17,14 @@
     require_once "../../MYSQL/conexion.php";
 
     // Consulta SQL para obtener los datos de la tabla
-    $sql = "SELECT * FROM empleados";
+    $sql = "SELECT * FROM usuarios";
     $resultado = mysqli_query($conn, $sql);
 
     ?>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACION DE EMPLEADOS</h1>
+        <h1>VENTANA DE ADMINISTRACION DE USUARIOS</h1>
         <div class="row mt-5">
-            <div class="col-sm-4 col-md-10">
+            <div class="col-sm-6 col-md-8">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -34,8 +34,6 @@
                             <th scope="col">Apellido Materno</th>
                             <th scope="col">Correo Electronico</th>
                             <th scope="col">Telefono</th>
-                            <th scope="col">Horario</th>
-                            <th scope="col">Dias laborables</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -46,28 +44,16 @@
                             // Iterar sobre cada fila de resultados
                             while ($fila = mysqli_fetch_assoc($resultado)) {
                                 echo "<tr>";
-                                echo "<th scope='row'>" . $fila['id_empleado'] . "</th>";
+                                echo "<th scope='row'>" . $fila['id_usuario'] . "</th>";
                                 echo "<td>" . $fila['nombre'] . "</td>";
                                 echo "<td>" . $fila['apellido_pat'] . "</td>";
                                 echo "<td>" . $fila['apellido_mat'] . "</td>";
                                 echo "<td>" . $fila['email'] . "</td>";
                                 echo "<td>" . $fila['telefono'] . "</td>";
-                                $consulta = "SELECT * FROM admin_empleados WHERE id_empleado=" . $fila['id_empleado'] . ";";
-                                $result = mysqli_query($conn, $consulta);
-                                if (mysqli_num_rows($result) > 0) {
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        echo "<td>" . $row['hora_inicio'] . "--" . $row['hora_fin'] . "</td>";
-                                        echo "<td>" . $row['fecha_inicio'] . "--" . $row['fecha_fin'] . "</td>";
-                                    }
-                                }
-
                                 echo "<td>";
-                                echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_empleado'] . "'>Eliminar</button>";
-                                echo "<button class='btn btn-warning mb-2'>Actualizar</button>";
+                                echo "<button class='btn btn-danger eliminar mb-2' data-id='".$fila['id_usuario'] ."'>Eliminar</button>";
+                                echo "<button>Actualizar</button>";
                                 echo "</td>";
-                                echo "<td>
-                                <a href='./asignar_datetime.php?id=" . $fila['id_empleado'] . "' class='btn btn-success'  >Horario</a>
-                                </td>";
                                 echo "</tr>";
                             }
                         } else {
@@ -78,18 +64,9 @@
                 </table>
             </div>
 
-            <div class="col-9 col-md-2 ">
-                <p>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                        Agregar Empleado
-                    </button>
-                </p>
-                <div style="min-height: 120px;">
-                    <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                        <div class="card card-body" style="width: 300px;">
-                        <form action="" method="post">
+            <div class="col-6 col-md-4">
+                <form action="" method="post">
                     <div class="row g-3">
-
                         <div class="col ">
                             <input type="text" class="form-control" placeholder="Nombre" aria-label="First name" name="nombre">
                         </div>
@@ -118,19 +95,12 @@
                             <input type="text" class="form-control" placeholder="Telefono" name="tel">
                         </div>
                     </div>
-
                     <div class="row g-3 mt-3">
                         <div class="col">
                             <button type="submit" class="btn btn-primary">Agregar</button>
-
                         </div>
                     </div>
                 </form>
-
-                        </div>
-                    </div>
-                </div>
-                
             </div>
         </div>
     </div>
@@ -143,13 +113,12 @@
         $correo = $_POST['email'];
         $contraseña = $_POST['pass'];
         $telefono = $_POST['tel'];
-
-        $sql = "INSERT INTO empleados (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
+        $sql = "INSERT INTO usuarios (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
 
         $resultado = mysqli_query($conn, $sql);
         if ($resultado) {
-            echo "<script>alert('Empleado registrado correctamente');</script>";
-            echo "<script>window.location.href='./admin-empleados.php';</script>";
+            echo "<script>alert('Usuario registrado correctamente');</script>";
+            echo "<script>window.location.href='./admin-user.php';</script>";
         } else {
             echo "<p>Error al registrar usuario</p>";
         }
