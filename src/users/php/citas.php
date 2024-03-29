@@ -5,18 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../bootstrap-5.3.3-dist/css/bootstrap.css">
-
     <script src="../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 
     <title>Agendar</title>
 </head>
+<script>
+    function mostrarToast() {
+  // Obtener el elemento del toast
+  var toast = document.getElementById("miToast");
+  // Establecer su estilo para que sea visible
+  toast.style.display = "block";
+  // Inicializar el toast de Bootstrap para que funcione correctamente
+  var toastEl = new bootstrap.Toast(toast);
+  // Mostrar el toast
+  toastEl.show();
+}
+</script>
 
-<body>
-    <?php
+<body onload="mostrarToast()">
+<?php
     require_once "./superior_usr.php";
     ?>
-
-
     <div class="container">
         <div class="row align-items-start">
             <div class="col">
@@ -126,7 +135,7 @@
 
                         </div>
                             ";
-                            }
+                        }
 
 
                         ?>
@@ -134,6 +143,17 @@
                 </div>
             </div>
         </div>
+        <div id="miToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <img src="..." class="rounded me-2" alt="...">
+    <strong class="me-auto">Atencion</strong>
+    <small>Ahora</small>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div class="toast-body">
+   Para agendar una cita es necesario dejar un anticipo, para garantizar la cita, y si se requiere comprar respuestos necesarios
+  </div>
+</div>
 </body>
 
 </html>

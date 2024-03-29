@@ -36,7 +36,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="#">Tutoriales</a></li>
+              <li><a class="dropdown-item" href="./php/ver_citas.php">ver citas</a></li>
             </ul>
           </li>
 
@@ -114,7 +114,7 @@
             . $row['descripcion'] .
             "</p>";
 
-          echo "<a class='action' href='#'>";
+          echo "<a class='action' href='./php/citas.php'>";
           echo "Agendar cita";
           echo "<span aria-hidden='true'>";
           echo "→";
@@ -130,7 +130,6 @@
 
     </div>
   </div>
-
 
 
 </body>

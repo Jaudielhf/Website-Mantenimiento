@@ -1,6 +1,8 @@
 <?php
+ // Incluir el encabezado
+ require_once "./superior_usr.php";
 // Iniciar sesión (si no lo has hecho aún)
-session_start();
+
 
 // Verificar si el nombre de usuario/empleado está almacenado en la variable de sesión
 if (isset($_SESSION['username'])) {
@@ -26,8 +28,7 @@ if (isset($_SESSION['username'])) {
         $email = $fila['email'];
         $telefono = $fila['telefono'];
 
-        // Incluir el encabezado
-        require_once "./superior_usr.php";
+       
     } else {
         echo "No se encontraron datos del usuario.";
     }

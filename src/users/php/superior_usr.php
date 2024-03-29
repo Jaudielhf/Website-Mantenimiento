@@ -20,7 +20,7 @@
             <li><a class="dropdown-item" href="#">Mantenimiento</a></li>
             <li><a class="dropdown-item" href="#">Reparacion</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Tutoriales</a></li>
+            <li><a class="dropdown-item" href="./ver_citas.php">Ver citas</a></li>
           </ul>
         </li>
         
