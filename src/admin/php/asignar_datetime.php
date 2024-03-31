@@ -85,7 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fecha_out=$_POST['fecha_out'];
         $id_empleado=$_POST['id_empleado'];
 
-        $consulta = "INSERT INTO admin_empleados (fecha_inicio, fecha_fin, hora_inicio, hora_fin, id_empleado) VALUES ('$fecha_in', '$fecha_out', '$hora_in', '$hora_out', '$id_empleado')";
+        //$consulta = "INSERT INTO admin_empleados (fecha_inicio, fecha_fin, hora_inicio, hora_fin, id_empleado) VALUES ('$fecha_in', '$fecha_out', '$hora_in', '$hora_out', '$id_empleado')";
+        $consulta="UPDATE admin_empleados SET fecha_inicio='$fecha_in', fecha_fin='$fecha_out', hora_inicio='$hora_in', hora_fin='$hora_out' WHERE id_empleado = '$id_empleado'";
         $resultado = mysqli_query($conn, $consulta);
         if ($resultado) {
             echo "<script>alert('Horario agregado correctamente');</script>";

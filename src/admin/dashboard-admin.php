@@ -106,7 +106,7 @@
                                             <p class="title">Administrar Servicios
                                             </p>
                                             <p>En esta seccion podra administrar los servicios registrados en la pagina.</p>
-                                            <button onclick="location.href='./php/admin-empleados.php'" class="button">Servicios</button>
+                                            <button onclick="location.href='./php/servicios.php'" class="button">Servicios</button>
                                         </div>
                                     </div>
                                 </article>
