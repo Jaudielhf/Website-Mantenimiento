@@ -1,10 +1,11 @@
+
 <?php
 require_once "./superior_usr.php";
 // Establecer conexión con la base de datos
 require_once "../../MYSQL/conexion.php";
 
-if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
+if (isset($_POST['id_cita'])) {
+    $id_cita = $_POST['id_cita'];
 
     $sql = "SELECT 
         c.id_cita,
@@ -31,7 +32,7 @@ if (isset($_SESSION['username'])) {
     JOIN 
         mantenimiento.empleados AS e ON c.id_empleado = e.id_empleado
     WHERE 
-        u.username='$username'
+        c.id_cita='$id_cita'
     ORDER BY 
         c.descripcion DESC 
     LIMIT 1000";
@@ -42,9 +43,7 @@ if (isset($_SESSION['username'])) {
         // Manejar el error de la consulta
         echo "Error en la consulta: " . mysqli_error($conn);
     }
-} else {
-    echo "<a class='nav-link' href='./../login/sign.php'>Iniciar sesión</a>";
-}
+} 
 ?>
 
 <!DOCTYPE html>
@@ -61,23 +60,9 @@ if (isset($_SESSION['username'])) {
 <body>
     <div class="container mt-4">
         <h1>VENTANA DE ADMINISTRACION DE CITAS</h1>
-        <div class="row">
-            <div class="col-md-6 ">
-                <nav class="navbar bg-body-tertiary ">
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search" method="post" action="busqueda_cita.php">
-                            
-                            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="id_cita">
-                            <button class="btn btn-outline-success" type="submit">Buscar</button>
-                        </form>
-                    </div>
-                </nav>
-            </div>
-        </div>
         <div class="row mt-5">
-        
-        
-            <div class="col-sm-6 col-md-12">
+            
+            <div class="col-sm-6 col-md-8">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -133,6 +118,18 @@ if (isset($_SESSION['username'])) {
                 </table>
             </div>
            
+        </div>
+        <div class="row">
+        <div class="col-3">
+                <nav class="navbar bg-body-tertiary">
+                    <div class="container-fluid">
+                        <form class="d-flex" role="search" method="post" action="busqueda_cita.php">
+                            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="id_cita">
+                            <button class="btn btn-outline-success" type="submit">Buscar</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
         </div>
     </div>
 

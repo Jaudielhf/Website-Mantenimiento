@@ -108,7 +108,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="tipo">Tipo de Servicio</label>
-                                <select class="form-select" aria-label="Default select example" name="tipo" required>
+                                <select class="form-select" aria-label="Default select example" name="servicio" required>
                                     <option selected>Selecciona un tipo de servicio</option>
                                     <?php
 
@@ -174,7 +174,7 @@
                             </div>
                         </div>
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Escriba una breve Descripcion para la cita" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <textarea class="form-control" name="descripcion" placeholder="Escriba una breve Descripcion para la cita" id="floatingTextarea2" style="height: 100px"></textarea>
                             <label for="floatingTextarea2">Escriba una breve Descripcion para la cita</label>
                         </div>
 
@@ -245,6 +245,8 @@
 
 
                         ?>
+
+                        
                         </form>
                 </div>
             </div>
