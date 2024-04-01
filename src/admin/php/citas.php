@@ -16,7 +16,9 @@
     require_once "../../MYSQL/conexion.php";
 
     $sql = "SELECT 
-    c.id_cita, 
+    c.id_cita,
+    c.horario AS hora,
+    c.fecha AS fechas,  
     c.id_servicio, 
     s.nombre AS nombre_servicio, 
     s.precio AS precio_servicio,
@@ -28,8 +30,7 @@
     u.telefono AS telefono_usuario,
     c.id_empleado, 
     e.nombre AS nombre_empleado, 
-    c.subtotal, 
-    c.total, 
+   
     LEFT(c.descripcion, 256) AS descripcion_cita
 FROM 
     mantenimiento.citas AS c
@@ -65,7 +66,7 @@ LIMIT 1000;
                             <th scope="col">Servicio</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Descripcion</th>
-                            <th scope="col">Total</th>
+                        
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -85,7 +86,7 @@ LIMIT 1000;
                                 echo "<td>" . $nombre_servicio= $fila['nombre_servicio'] . "</td>";
                                 echo "<td>" . $precio= $fila['precio_servicio'] . "</td>";
                                 echo "<td>" . $descripcion= $fila['descripcion_cita'] . "</td>";
-                                echo "<td>" . $total= $fila['total'] . "</td>";
+                                
                                 echo "<td>";
                                 echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $idCita=$fila['id_cita'] . "'>Eliminar</button>";
                                 echo "<button>Actualizar</button>";
