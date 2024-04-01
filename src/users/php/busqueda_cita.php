@@ -32,7 +32,7 @@ if (isset($_POST['id_cita'])) {
     JOIN 
         mantenimiento.empleados AS e ON c.id_empleado = e.id_empleado
     WHERE 
-        c.id_cita='$id_cita'
+        c.id_cita='$id_cita' AND u.username='$username'
     ORDER BY 
         c.descripcion DESC 
     LIMIT 1000";

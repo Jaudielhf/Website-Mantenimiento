@@ -35,7 +35,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Servicios</a></li>
+                                <li><a class="dropdown-item" href="./php/servicios.php">Servicios</a></li>
                             </ul>
 
                         </li>
@@ -126,7 +126,7 @@
                                             <p class="title">Administrar Servicios
                                             </p>
                                             <p>En esta seccion podra administrar los servicios registrados en la pagina.</p>
-                                            <button onclick="location.href='./php/admin-empleados.php'" class="button">Servicios</button>
+                                            <button onclick="location.href='./php/servicios.php'" class="button">Servicios</button>
                                         </div>
                                     </div>
                                 </article>

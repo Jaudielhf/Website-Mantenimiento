@@ -41,7 +41,7 @@
                         ?>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="./../login/logout.php">Cerrar sesión</a>
+                        <a class="nav-link" href="../../login/logout.php">Cerrar sesión</a>
                     </div>
                 </div>
             </div>
