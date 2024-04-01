@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-    <script src="../js/script.js"></script>
-    <title>Empleados</title>
+
+    <title>Servicios | ADMINISTRACION</title>
 </head>
 
 <body>
@@ -17,26 +17,24 @@
     require_once "../../MYSQL/conexion.php";
 
     // Consulta SQL para obtener los datos de la tabla
-    $sql = "SELECT * FROM empleados";
+    $sql = "SELECT * FROM servicios";
     $resultado = mysqli_query($conn, $sql);
 
     ?>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACION DE EMPLEADOS</h1>
+        <h1>VENTANA DE ADMINISTRACION DE SERVICIOS</h1>
         <div class="row mt-5">
             <div class="col-sm-4 col-md-10">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Imagen</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Apellido Paterno</th>
-                            <th scope="col">Apellido Materno</th>
-                            <th scope="col">Correo Electronico</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Horario</th>
-                            <th scope="col">Dias laborables</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Precio</th>
                             <th scope="col">Acciones</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -46,28 +44,17 @@
                             // Iterar sobre cada fila de resultados
                             while ($fila = mysqli_fetch_assoc($resultado)) {
                                 echo "<tr>";
-                                echo "<th scope='row'>" . $fila['id_empleado'] . "</th>";
+                                echo "<td>" . $fila['id_servicio'] . "</td>";
+                                echo "<td><img src='../../img/" . $fila['imagen'] . "' alt='' width='80px'></td>";
                                 echo "<td>" . $fila['nombre'] . "</td>";
-                                echo "<td>" . $fila['apellido_pat'] . "</td>";
-                                echo "<td>" . $fila['apellido_mat'] . "</td>";
-                                echo "<td>" . $fila['email'] . "</td>";
-                                echo "<td>" . $fila['telefono'] . "</td>";
-                                $consulta = "SELECT * FROM admin_empleados WHERE id_empleado=" . $fila['id_empleado'] . ";";
-                                $result = mysqli_query($conn, $consulta);
-                                if (mysqli_num_rows($result) > 0) {
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        echo "<td>" . $row['hora_inicio'] . "--" . $row['hora_fin'] . "</td>";
-                                        echo "<td>" . $row['fecha_inicio'] . "--" . $row['fecha_fin'] . "</td>";
-                                    }
-                                }
+                                echo "<td>" . $fila['descripcion'] . "</td>";
+                                echo "<td>" . $fila['precio'] . "</td>";
 
                                 echo "<td>";
-                                echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_empleado'] . "'>Eliminar</button>";
+                                echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_servicio'] . "'>Eliminar</button>";
                                 echo "<button class='btn btn-warning mb-2'>Actualizar</button>";
                                 echo "</td>";
-                                echo "<td>
-                                <a href='./asignar_datetime.php?id=" . $fila['id_empleado'] . "' class='btn btn-success'  >Horario</a>
-                                </td>";
+
                                 echo "</tr>";
                             }
                         } else {
@@ -77,60 +64,99 @@
                     </tbody>
                 </table>
             </div>
+            <script>
+                // Script para manejar el evento clic en el botón Eliminar
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Seleccionar todos los botones de clase 'eliminar'
+                    var botonesEliminar = document.querySelectorAll('.eliminar');
 
+                    // Agregar un evento clic a cada botón Eliminar
+                    botonesEliminar.forEach(function(boton) {
+                        boton.addEventListener('click', function() {
+                            // Obtener el ID del registro a eliminar desde el atributo data-id del botón
+                            var id = this.getAttribute('data-id');
+
+                            // Confirmar si el usuario realmente quiere eliminar el registro
+                            if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+                                // Si confirma, enviar una solicitud al servidor para eliminar el registro
+                                eliminarRegistro(id);
+                            }
+                        });
+                    });
+
+                    // Función para enviar una solicitud al servidor para eliminar el registro
+                    function eliminarRegistro(id_servicio) {
+                        // Enviar una solicitud AJAX al servidor para eliminar el registro
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', './del_servicio.php', true);
+                        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                        xhr.onload = function() {
+                            // Manejar la respuesta del servidor
+                            if (xhr.status == 200) {
+                                // Recargar la página después de eliminar el registro
+                                location.reload();
+                            } else {
+                                // Mostrar un mensaje de error si hay un problema al eliminar el registro
+                                alert('Error al eliminar el registro.');
+                            }
+                        };
+                        // Enviar el ID del registro como datos de formulario
+                        xhr.send('id_servicio=' + id_servicio);
+                    }
+
+
+                });
+            </script>
             <div class="col-9 col-md-2 ">
                 <p>
                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                        Agregar Empleado
+                        Agregar Servicio
                     </button>
                 </p>
                 <div style="min-height: 120px;">
                     <div class="collapse collapse-horizontal" id="collapseWidthExample">
                         <div class="card card-body" style="width: 300px;">
-                        <form action="" method="post">
-                    <div class="row g-3">
+                            <form action="add_servicio.php" method="post" enctype="multipart/form-data">
+                                <div class="row g-3">
 
-                        <div class="col ">
-                            <input type="text" class="form-control" placeholder="Nombre" aria-label="First name" name="nombre">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Apellido Paterno" aria-label="Last name" name="apellido_pat">
-                        </div>
-                    </div>
-                    <div class="row g-3 mt-2">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Apellido Materno" aria-label="Last name" name="apellido_mat">
-                        </div>
-                    </div>
-                    <div class="row g-3 mt-2">
-                        <div class="col">
-                            <input type="email" class="form-control" placeholder="Correo Electronico" name="email">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Nombre de Usuario" name="username">
-                        </div>
-                    </div>
-                    <div class="row g-3 mt-2">
-                        <div class="col">
-                            <input type="password" class="form-control" placeholder="Contraseña" name="pass">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Telefono" name="tel">
-                        </div>
-                    </div>
+                                    <div class="col ">
+                                        <input type="text" class="form-control" placeholder="Servicio" aria-label="First name" name="nombre">
+                                    </div>
 
-                    <div class="row g-3 mt-3">
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary">Agregar</button>
+                                </div>
+                                <div class="row g-3 mt-2">
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Precio" aria-label="Last name" name="precio">
+                                    </div>
+                                </div>
 
-                        </div>
-                    </div>
-                </form>
+                                <div class="row g-3 mt-2">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" name="descripcion" placeholder="Escriba una breve Descripcion para la cita" id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">Descripcion</label>
+                                    </div>
+                                </div>
+                                <div class="row g-3 mt-2">
+                                    <div class="col">
+                                        <div class="input-group mb-3">
+                                            
+                                            <input type="file" class="form-control" id="inputGroupFile01" name="imagen">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-3">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-primary">Agregar</button>
+
+                                    </div>
+                                </div>
+                            </form>
 
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

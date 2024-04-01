@@ -50,16 +50,18 @@
             // Verificar si el nombre de usuario/empleado está almacenado en la variable de sesión
             if (isset($_SESSION['username'])) {
               $username = $_SESSION['username'];
-              echo "<a class='nav-link' href='./php/editar_usuario.php'>Bienvenido, $username</a>";
+              echo "<a class='nav-link' href='./php/editar_usuario.php'>Bienvenido, $username</a>
+              </div>
+              <div class='nav-item'>
+    
+                <a class='nav-link' href='./../login/logout.php'>Cerrar sesión</a>
+              </div>
+              ";
             } else {
               echo "<a class='nav-link' href='./../login/sign.php'>Iniciar sesión</a>";
             }
             ?>
-          </div>
-          <div class="nav-item">
-
-            <a class="nav-link" href="./../login/logout.php">Cerrar sesión</a>
-          </div>
+         
         </div>
       </div>
 

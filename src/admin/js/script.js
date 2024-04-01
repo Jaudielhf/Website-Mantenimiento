@@ -37,5 +37,7 @@
             // Enviar el ID del registro como datos de formulario
             xhr.send('id_empleado=' + id_empleado);
         }
+
+
     });
 
