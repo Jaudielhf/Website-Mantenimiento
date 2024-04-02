@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary ">
   <div class="container-fluid">
     <a class="navbar-brand" href="../index.php">Inicio</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,7 @@
               $username = $_SESSION['username'];
               echo "<a class='nav-link' href='./editar_usuario.php'>Bienvenido, $username</a>
               </div>
+              <div class='vr'></div>
               <div class='nav-item'>
     
                 <a class='nav-link' href='../../login/logout.php'>Cerrar sesión</a>

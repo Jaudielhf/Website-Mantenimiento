@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="./css/style.css">
     <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-    <title>Inicio | empleado</title>
+    <title>Inicio | EMPLEADO</title>
 </head>
 
 <body>

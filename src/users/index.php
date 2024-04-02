@@ -93,7 +93,7 @@
       <?php
 
       require_once('../MYSQL/conexion.php');
-      $sql = "SELECT * FROM servicios";
+      $sql = "SELECT * FROM servicios LIMIT 4";
       $resultado = mysqli_query($conn, $sql);
 
       if (mysqli_num_rows($resultado) > 0) {
