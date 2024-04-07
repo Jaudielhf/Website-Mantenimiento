@@ -1,7 +1,7 @@
 <?php
 
 
-$conn = new mysqli("localhost", "jaudiel", "jezspoker23", "mantenimiento");
+$conn = new mysqli("localhost", "root", "", "mantenimiento");
 
 $conn->set_charset('utf8');
 // Verificar la conexión

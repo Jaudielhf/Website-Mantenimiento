@@ -87,7 +87,7 @@
                                         <div class="card-data">
                                             <p class="title">Administrar Empleados
                                             </p>
-                                            <p>En esta seccion podra administrar a los empleados registrados en la pagina.</p>
+                                            <p>Administracion de los empleados registrados en la pagina.</p>
                                             <button onclick="location.href='./php/admin-empleados.php'" class="button">Empleados</button>
                                         </div>
                                     </div>
@@ -122,6 +122,15 @@
                                                 <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z" />
                                             </svg>
                                         </div>
+                                        <div class="card-data">
+                                            <p class="title">Realizar Pago
+                                            </p>
+                                            <p>En esta seccion podra realizar el pago al servicio</p>
+                                            <button onclick="location.href='./php/admin-empleados.php'" class="button">Empleados</button>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
                                         <div class="card-data">
                                             <p class="title">Administrar Citas
                                             </p>

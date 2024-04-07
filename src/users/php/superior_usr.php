@@ -12,17 +12,10 @@
         <li class="nav-item">
           <a class="nav-link" href="citas.php">Agendar</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Servicios
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Mantenimiento</a></li>
-            <li><a class="dropdown-item" href="#">Reparacion</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="./ver_citas.php">Ver citas</a></li>
-          </ul>
+        <li class="nav-item">
+        <a class="nav-link" href="./ver_citas.php">Ver citas</a>
         </li>
+        
         
       </ul>
       <div class="navbar-nav">

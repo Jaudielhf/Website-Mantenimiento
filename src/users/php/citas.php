@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <script src="../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AWkwn-ZpT6B30b4VO--Hw0vxxfAjPiAaa390-0-FSFTdQF6YZUVbJeXcxGOhzkMrrEIwstluGw7Lu_d9&currency=MXN"></script>
 
     <title>Agendar</title>
 </head>
@@ -29,11 +31,12 @@
     ?>
     <div class="container">
         <div class="row align-items-start">
-            <div class="col">
+            <div class="col-9">
                 <div class="container ">
                     <h2>
                         Agendar Cita
                     </h2>
+
                     <?php
 
 
@@ -134,20 +137,20 @@
                             <div class="form-group">
                                 <label for="empleado">Empleado</label>
                                 <?php
-                                
+
                                 require_once "../../MYSQL/conexion.php";
                                 // Obtener la fecha y hora actual
                                 date_default_timezone_set('America/Mexico_City');
 
                                 $fecha_actual = date("Y-m-d");
                                 $hora_actual = date("H:i:s");
-                                
+
                                 // Consultar empleados disponibles
                                 $sql = "SELECT e.id_empleado, e.nombre
-        FROM empleados e
-        INNER JOIN admin_empleados ae ON e.id_empleado = ae.id_empleado
-        WHERE '$fecha_actual' BETWEEN ae.fecha_inicio AND ae.fecha_fin AND
-              '$hora_actual' BETWEEN ae.hora_inicio AND ae.hora_fin";
+                                         FROM empleados e
+                                         INNER JOIN admin_empleados ae ON e.id_empleado = ae.id_empleado
+                                         WHERE '$fecha_actual' BETWEEN ae.fecha_inicio AND ae.fecha_fin AND
+                                         '$hora_actual' BETWEEN ae.hora_inicio AND ae.hora_fin";
 
 
                                 $resultado = mysqli_query($conn, $sql);
@@ -171,6 +174,8 @@
 
                                 </select>
 
+
+
                             </div>
                         </div>
                         <div class="form-floating">
@@ -185,7 +190,7 @@
                         if (isset($_SESSION['username'])) {
                             $username = $_SESSION['username'];
                             echo "
-                            <div class='d-grid gap-2 d-md-block'>
+                            <div class='d-grid gap-2 d-md-block' >
                             <!-- Button trigger modal -->
                             <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>
                                 Agendar cita
@@ -202,9 +207,9 @@
                                         <div class='modal-body'>
                                             Esta a punto de agendar una cita, antes de enviar, favor de verificar sus datos para mejorar la experiencia en la estacion de servicio seleccionada
                                         </div>
-                                        <div class='modal-footer'>
+                                        <div class='modal-footer' id='agendar'>
                                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                            <button type='submit' class='btn btn-outline-success'>Enviar</button>
+                                            <button type='submit' disabled class='btn btn-outline-success'>ENVIAR</button>
                                         </div>
                                     </div>
                                 </div>
@@ -246,22 +251,65 @@
 
                         ?>
 
-                        
+
                         </form>
                 </div>
             </div>
-        </div>
-        <div id="miToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="..." class="rounded me-2" alt="...">
-                <strong class="me-auto">Atencion</strong>
-                <small>Ahora</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <div class="col-3 text-center mt-5">
+
+                            <h3>AQUI PUEDE REALIZAR SU ANTICIPO DE LA CITA</h3>
+                <div id="paypal-button-container"></div>
+
+
+                <script>
+                    // Render the PayPal button into #paypal-button-container
+                    paypal.Buttons({
+                        style: {
+                            color: 'blue',
+                            shape: 'pill'
+                        },
+                        // Call your server to set up the transaction
+                        createOrder: function(data, actions) {
+                            return actions.order.create({
+                                purchase_units: [{
+                                    amount: {
+                                        currency_code: 'MXN',
+                                        value: '150.00'
+                                    }
+                                }]
+                            })
+                        },
+                        onApprove: function(data, actions) {
+                            actions.order.capture().then(function(detalles) {
+
+                                console.log(detalles);
+                                console.log(detalles.create_time);
+                                console.log(detalles.status);
+
+                                if (detalles.status == "COMPLETED") {
+                                    var enviarCita = document.getElementById("agendar");
+                                    var codigoHtml = `
+                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                    <button type='submit' class='btn btn-outline-success'>Enviar</button>
+                                        `;
+                                        enviarCita.innerHTML = codigoHtml;
+                                }
+                            });
+                        },
+                        onCancel: function(data) {
+                            alert("Cancelado");
+                            console.log(data);
+
+                        }
+
+
+
+                    }).render('#paypal-button-container');
+                </script>
             </div>
-            <div class="toast-body">
-                Para agendar una cita es necesario dejar un anticipo, para garantizar la cita, y si se requiere comprar respuestos necesarios
-            </div>
+
         </div>
+
 </body>
 
 </html>

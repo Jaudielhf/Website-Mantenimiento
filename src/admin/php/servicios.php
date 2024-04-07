@@ -52,7 +52,8 @@
 
                                 echo "<td>";
                                 echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_servicio'] . "'>Eliminar</button>";
-                                echo "<button class='btn btn-warning mb-2'>Actualizar</button>";
+                                echo "<button class='btn btn-warning mb-2' onclick=\"window.location.href='actualizar_servicios.php?id=" . $fila['id_servicio'] . "'\">Actualizar</button>";
+
                                 echo "</td>";
 
                                 echo "</tr>";

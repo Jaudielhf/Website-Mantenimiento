@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 
-    <title>Servicios | EMPLEADO</title>
+    <title>Servicios | ADMINISTRACION</title>
 </head>
 
 <body>
@@ -52,7 +52,8 @@
 
                                 echo "<td>";
                                 echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_servicio'] . "'>Eliminar</button>";
-                                echo "<button class='btn btn-warning mb-2'>Actualizar</button>";
+                                echo "<button class='btn btn-warning mb-2' onclick=\"window.location.href='actualizar_servicios.php?id=" . $fila['id_servicio'] . "'\">Actualizar</button>";
+
                                 echo "</td>";
 
                                 echo "</tr>";

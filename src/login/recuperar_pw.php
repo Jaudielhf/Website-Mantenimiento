@@ -7,22 +7,29 @@
     <title>Recuperar contraseña</title>
 </head>
 <body>
-<div class="login-box">
+    <div class="login-box">
         <p>Recuperar contraseña</p>
-        <form method="post" action="recuperar.php">
-          <div class="user-box">
-            <input id="email" name="email" type="email">
-            <label>Correo Electronico</label>
-          </div>
-        
-          <a href="#">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <button type="submit">recuperar</button>
-          </a>
+        <form method="post" action="recuperar.php" onsubmit="return confirmSubmit()">
+            <div class="user-box">
+                <input id="email" name="email" type="email">
+                <label>Correo Electrónico</label>
+            </div>
+            <button type="submit" onclick="showConfirmation()">Recuperar</button>
         </form>
-      </div>
-      </body>
+    </div>
+
+    <!-- Script JavaScript para mostrar la alerta -->
+    <script>
+        function showConfirmation() {
+            // Mostrar una alerta con el mensaje deseado
+            alert("Se enviará un correo electrónico con instrucciones para restablecer tu contraseña.");
+        }
+
+        function confirmSubmit() {
+            // Solicitar confirmación al usuario antes de enviar el formulario
+            return confirm("¿Estás seguro de que deseas recuperar la contraseña?");
+        }
+    </script>
+</body>
 </html>
+
