@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_empleado'])) {
         if (mysqli_query($conn, $sql_delete_empleado)) {
             // Empleado eliminado correctamente
             echo json_encode(array("status" => "success", "message" => "Empleado eliminado correctamente"));
+            
         } else {
             // Error al eliminar empleado
             echo json_encode(array("status" => "error", "message" => "Error al eliminar empleado: " . mysqli_error($conn)));

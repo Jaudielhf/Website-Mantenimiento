@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Port = 587;
 
             // Configurar remitente y destinatario
-            $mail->setFrom('cesarneri803@gmail.com', 'Cesar');
+            $mail->setFrom('cesarneri803@gmail.com', 'Mantenimiento y Reparaciones ');
             $mail->addAddress($email);
 
             // Contenido del correo con la contraseña del usuario

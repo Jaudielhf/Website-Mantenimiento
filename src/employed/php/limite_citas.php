@@ -1,6 +1,4 @@
-<?php
-    require_once "./superior.php";
-    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,6 +41,9 @@
 </head>
 
 <body>
+<?php
+    require_once "./superior.php";
+    ?>
     <div class="container mt-4">
         <h1>Configuración de Límite de Citas</h1>
         <form action="guardar_limite_citas.php" method="post">

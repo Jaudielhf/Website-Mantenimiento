@@ -2,8 +2,6 @@
 // Establecer conexión con la base de datos
 require_once "../../MYSQL/conexion.php";
 
-require_once "../../MYSQL/conexion.php";
-
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;

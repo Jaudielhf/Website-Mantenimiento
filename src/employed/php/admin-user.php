@@ -52,7 +52,11 @@
                                 echo "<td>" . $fila['telefono'] . "</td>";
                                 echo "<td>";
                                 echo "<button class='btn btn-danger eliminar mb-2' data-id='".$fila['id_usuario'] ."'>Eliminar</button>";
-                                echo "<button>Actualizar</button>";
+                                echo "<form action='actualizar_user.php' method='post'>";
+                                echo "<input type='hidden' name='id_usuario' value='" . $fila['id_usuario'] . "'>";
+                                echo "<td>";
+                                echo "<button type='submit' class='btn btn-primary' name='actualizar'>Actualizar</button>";
+                                echo "</td>";
                                 echo "</td>";
                                 echo "</tr>";
                             }

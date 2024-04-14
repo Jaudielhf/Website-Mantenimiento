@@ -35,12 +35,12 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Servicios</a></li>
+                                <li><a class="dropdown-item" href="./php/servicios.php">Servicios</a></li>
                             </ul>
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./php/superior.php">Realizar Pago</a>
+                            <a class="nav-link" href="./php/pago.php">Realizar Pago</a>
                         </li>
                     </ul>
 
@@ -126,7 +126,7 @@
                                             <p class="title">Realizar Pago
                                             </p>
                                             <p>En esta seccion podra realizar el pago al servicio</p>
-                                            <button onclick="location.href='./php/admin-empleados.php'" class="button">Empleados</button>
+                                            <button onclick="location.href='./php/pago.php'" class="button">Empleados</button>
                                         </div>
                                     </div>
                                 </article>

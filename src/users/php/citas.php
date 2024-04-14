@@ -11,20 +11,8 @@
 
     <title>Agendar</title>
 </head>
-<script>
-    function mostrarToast() {
-        // Obtener el elemento del toast
-        var toast = document.getElementById("miToast");
-        // Establecer su estilo para que sea visible
-        toast.style.display = "block";
-        // Inicializar el toast de Bootstrap para que funcione correctamente
-        var toastEl = new bootstrap.Toast(toast);
-        // Mostrar el toast
-        toastEl.show();
-    }
-</script>
 
-<body onload="mostrarToast()">
+<body">
     <?php
     require_once "./superior_usr.php";
     require_once "../../MYSQL/conexion.php";
@@ -185,10 +173,10 @@
 
                         <?php
 
-
-                        // Verificar si el nombre de usuario/empleado está almacenado en la variable de sesión
+                                            //
                         if (isset($_SESSION['username'])) {
                             $username = $_SESSION['username'];
+                            //consulta para el ticket
                             echo "
                             <div class='d-grid gap-2 d-md-block' >
                             <!-- Button trigger modal -->
@@ -207,10 +195,16 @@
                                         <div class='modal-body'>
                                             Esta a punto de agendar una cita, antes de enviar, favor de verificar sus datos para mejorar la experiencia en la estacion de servicio seleccionada
                                         </div>
-                                        <div class='modal-footer' id='agendar'>
-                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                            <button type='submit' disabled class='btn btn-outline-success'>ENVIAR</button>
-                                        </div>
+                                        <div class='modal-footer' id='agendar'>";
+                                        while ($fila = mysqli_fetch_array($resultado)) {
+
+                                           echo"                
+                                           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                           <input type='number' name='id' hidden  value='" . $fila['id_cita'] . "'>
+                                            <button type='submit' disabled class='btn btn-outline-success' >ENVIAR</button>
+                                        ";
+                                        }
+                                        echo"</div>
                                     </div>
                                 </div>
                             </div>
@@ -293,6 +287,7 @@
                                     <button type='submit' class='btn btn-outline-success'>Enviar</button>
                                         `;
                                         enviarCita.innerHTML = codigoHtml;
+                                    
                                 }
                             });
                         },

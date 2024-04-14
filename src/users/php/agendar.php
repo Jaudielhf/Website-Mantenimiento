@@ -1,5 +1,9 @@
 <?php
 require_once "../../MYSQL/conexion.php";
+require_once "../../../vendor/autoload.php"; // Asegúrate de la ruta correcta al autoload de PHPMailer
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_usuario = $_POST['id_user'];
@@ -9,39 +13,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_empleado = $_POST['empleado'];
     $descripcion = $_POST['descripcion'];
 
-    $sql_count_citas = "SELECT COUNT(*) AS num_citas FROM citas WHERE fecha = '$fecha'";
-    $result_count_citas = mysqli_query($conn, $sql_count_citas);
+    // Insertar la cita en la base de datos
+    $sql_insert_cita = "INSERT INTO citas (id_usuario, id_servicio, fecha, horario, id_empleado, descripcion) 
+                        VALUES ('$id_usuario', '$id_servicio', '$fecha', '$hora', '$id_empleado', '$descripcion')";
 
-    if ($result_count_citas) {
-        $row_count_citas = mysqli_fetch_assoc($result_count_citas);
-        $num_citas = $row_count_citas['num_citas'];
+    if (mysqli_query($conn, $sql_insert_cita)) {
+        // Cita agregada correctamente
 
-        $sql_limit_citas = "SELECT max_citas_por_dia FROM configuracion_citas WHERE id = 1";
-        $result_limit_citas = mysqli_query($conn, $sql_limit_citas);
+        // Envío de correo de notificación al administrador
+        $mail = new PHPMailer(true);
 
-        if ($result_limit_citas) {
-            $row_limit_citas = mysqli_fetch_assoc($result_limit_citas);
-            $max_citas_por_dia = $row_limit_citas['max_citas_por_dia'];
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'cesarneri803@gmail.com'; // Correo del administrador
+            $mail->Password = 'kyoi thod ximj mipk'; // Contraseña del correo del administrador
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
 
-            if ($num_citas >= $max_citas_por_dia) {
+            $mail->setFrom('cesarneri803@gmail.com', 'Mantenimiento y Reparaciones');
+            $mail->addAddress('cesarneri803@gmail.com', 'Administrador'); // Correo del administrador
+            $mail->isHTML(true);
+            $mail->Subject = 'Nueva cita agendada';
+            
+            // Generar el enlace de inicio de sesión para el administrador
+            $loginUrl = 'http://localhost/Mantenimiento-pagina-Web/src/admin/php/citas.php';
+            $mail->Body = "Se ha agendado una nueva cita:<br><br>
+                           Usuario: $id_usuario<br>
+                           Fecha: $fecha<br>
+                           Hora: $hora<br>
+                           Descripción: $descripcion<br><br>
+                           Por favor, inicia sesión <a href='$loginUrl'>aquí</a> para revisar las citas.";
 
-                echo "<script>alert('Se ha alcanzado el límite de citas para esta fecha. Por favor, elige otra fecha.');</script>";
-            } else {
-                $sql_insert_cita = "INSERT INTO citas (id_usuario, id_servicio, fecha, horario, id_empleado, descripcion) VALUES ('$id_usuario', '$id_servicio', '$fecha', '$hora', '$id_empleado', '$descripcion')";
-                $resultado = mysqli_query($conn, $sql_insert_cita);
-
-                if ($resultado) {
-                    echo "<script>alert('Cita agregada correctamente');</script>";
-                    echo "<script>window.location.href='./ver_citas.php';</script>";
-                } else {
-                    echo "<script>alert('Error al agregar cita');</script>";
-                }
-            }
-        } else {
-            echo "<script>alert('Error al obtener el límite de citas por día.');</script>";
+            $mail->send();
+            echo "<script>alert('Cita agregada correctamente');</script>";
+            echo "<script>window.location.href='./ver_citas.php';</script>";
+        } catch (Exception $e) {
+            echo "<script>alert('Error al enviar notificación al administrador');</script>";
+            echo "<script>window.location.href='./ver_citas.php';</script>";
         }
     } else {
-                echo "<script>alert('Error al verificar las citas existentes.');</script>";
+        echo "<script>alert('Error al agregar cita');</script>";
+        echo "<script>window.location.href='./ver_citas.php';</script>";
     }
+} else {
+    echo "<script>alert('Acceso no autorizado');</script>";
+    echo "<script>window.location.href='./ver_citas.php';</script>";
 }
 ?>
+

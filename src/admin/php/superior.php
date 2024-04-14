@@ -22,7 +22,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./php/superior.php">Realizar Pago</a>
+                        <a class="nav-link" href="./php/pago.php">Realizar Pago</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./limite_citas.php">Límite de Citas</a>

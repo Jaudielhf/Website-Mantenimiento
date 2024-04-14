@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
         mantenimiento.empleados AS e ON c.id_empleado = e.id_empleado
     WHERE 
         c.id_cita = '$buscar' OR
-        c.fecha = '$buscar'
+        c.fecha = '$buscar' 
     ORDER BY 
         c.descripcion DESC 
     LIMIT 1000";

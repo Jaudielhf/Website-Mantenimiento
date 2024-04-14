@@ -120,8 +120,14 @@ if (isset($_SESSION['username'])) {
                                 echo "<td>" . $fecha = $fila['fechas'] . "</td>";
                                 echo "<td>" . $horario = $fila['hora'] . "</td>";
                                 echo "<td>";
-                                echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $idCita = $fila['id_cita'] . "'>Eliminar</button>";
-                                echo "<button>Actualizar</button>";
+                                echo "<form method='post' action='eliminar_cita.php'>";
+                                echo "<input type='hidden' name='id_cita' value='" . $fila['id_cita'] . "'>";
+                                echo "<button type='submit' name='eliminar_cita' class='btn btn-danger eliminar mb-2' onclick='return confirm(\"¿Estás seguro de eliminar esta cita?\");'>Eliminar</button>";
+                                echo "</form>";
+                                echo "<form method='post' action='actualizar_cita.php'>";
+                                echo "<input type='hidden' name='id_cita' value='" . $fila['id_cita'] . "'>";
+                                echo "<button type='submit' name='actualizar_cita' class='btn btn-success'>Actualizar</button>";
+                                echo "</form>";
                                 echo "</td>";
                                 echo "</tr>";
                             }
