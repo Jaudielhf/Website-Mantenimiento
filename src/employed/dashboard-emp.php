@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <title>Inicio | EMPLEADO</title>
 </head>
 
 <body>
 
-    <div class="container-fluid">
+    
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="./dashboard-emp.php">Inicio</a>
@@ -67,7 +68,7 @@
         </div>
             </div>
         </nav>
-        <div class="container">
+        <div class="container mt-4 mb-5">
             <div class="row mt-4 text-center">
                 <H1>VENTANA DE ADMINISTRACIÓN</H1>
                 <div class="col mt-5">
@@ -160,8 +161,9 @@
                 </div>
             </div>
         </div>
-
-    </div>
+        <?php
+        require_once './php/inferior.php';
+        ?>
 </body>
 
 </html>

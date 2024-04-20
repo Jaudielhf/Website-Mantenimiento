@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <script src="../js/script-admuser.js"></script>
     <title>Usuarios</title>
@@ -22,7 +24,7 @@
 
     ?>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACION DE USUARIOS</h1>
+        <h1>VENTANA DE ADMINISTRACIÓN DE USUARIOS</h1>
         <div class="row mt-5">
             <div class="col-sm-6 col-md-8">
                 <table class="table table-striped table-hover">
@@ -128,6 +130,10 @@
         }
         $conn->close();
     }
+
+    ?>
+    <?php
+    require_once("./inferior.php");
     ?>
 </body>
 

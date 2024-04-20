@@ -8,6 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_usuario = $_POST['id_user'];
     $id_servicio = $_POST['servicio'];
+    $id_estaciones=$_POST['estaciones'];
     $id_estaciones = $_POST['estaciones'];
     $fecha = $_POST['fecha'];
     $hora = $_POST['hora'];
@@ -63,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $sql_insert_cita = "INSERT INTO citas (id_usuario, id_servicio, fecha, horario, id_empleado, id_estaciones, descripcion) 
-                        VALUES ('$id_usuario', '$id_servicio', '$fecha', '$hora', '$id_empleado', $id_estaciones, '$descripcion')";
+    $sql_insert_cita = "INSERT INTO citas (id_usuario, id_servicio, fecha, horario, id_empleado, id_estaciones, id_estaciones, descripcion) 
+                        VALUES ('$id_usuario', '$id_servicio', '$fecha', '$hora', '$id_empleado', $id_estaciones, $id_estaciones, '$descripcion')";
 
     if (mysqli_query($conn, $sql_insert_cita)) {
         

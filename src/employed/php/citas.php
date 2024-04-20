@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
 
 <body>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACION DE CITAS</h1>
+        <h1>VENTANA DE ADMINISTRACIÓN DE CITAS</h1>
         <div class="row">
             <div class="col-md-6">
                 <nav class="navbar bg-body-tertiary">

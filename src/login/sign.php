@@ -10,13 +10,6 @@
 <?php
 require_once "../MYSQL/conexion.php";
 
-function isUsernameTaken($username, $conn) {
-    $username = mysqli_real_escape_string($conn, $username);
-    $consulta = "SELECT * FROM usuarios WHERE username = '$username'";
-    $resultado = mysqli_query($conn, $consulta);
-    return ($resultado && mysqli_num_rows($resultado) > 0);
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['Nombre'];
     $apellidoP = $_POST['Apellido_Pat'];
@@ -52,10 +45,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "<script>alert('Error al registrar usuario');</script>";
         }
+
+    // Realizar la verificación de la dirección de correo electrónico
+    $isEmailValid = verifyEmail($correo);
+
+    if ($isEmailValid === true) {
+        // Si la dirección de correo electrónico es válida, continuar con el procesamiento de los datos
+        // Verificar si el usuario ya existe en la base de datos
+        $consulta = "SELECT * FROM usuarios WHERE username = '$Username'";
+        $resultado = mysqli_query($conn, $consulta);
+        if ($resultado && mysqli_num_rows($resultado) > 0) {
+            echo "<script>alert('Usuario existente');</script>";
+        } else {
+            // Insertar el nuevo usuario en la base de datos
+            $sql = "INSERT INTO usuarios (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
+            $resultado = mysqli_query($conn, $sql);
+            if ($resultado) {
+                echo "<script>alert('Usuario registrado correctamente');</script>";
+                echo "<script>window.location.href='./login.php';</script>";
+            } else {
+                echo "<script>alert('Error al registrar usuario');</script>";
+            }
+        }
+    } elseif ($isEmailValid === false) {
+        // Si la dirección de correo electrónico es inválida, mostrar un mensaje de error
+        echo "<script>alert('La dirección de correo electrónico no es válida');</script>";
+    } else {
+        // Si no se pudo determinar la validez de la dirección de correo electrónico, mostrar un mensaje de error
+        echo "<script>alert('No se pudo determinar la validez de la dirección de correo electrónico');</script>";
     }
 }
 $conn->close();
 ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">

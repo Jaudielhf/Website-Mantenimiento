@@ -2,7 +2,8 @@
 require_once "./superior.php";
 require_once "../../MYSQL/conexion.php";
 
-$sql = "SELECT 
+
+    $sql = "SELECT 
         c.id_cita,
         c.horario AS hora,
         c.fecha AS fechas,  
@@ -27,11 +28,15 @@ $sql = "SELECT
         mantenimiento.usuarios AS u ON c.id_usuario = u.id_usuario
     JOIN 
         mantenimiento.empleados AS e ON c.id_empleado = e.id_empleado
+
     ORDER BY 
         c.descripcion DESC 
     LIMIT 1000";
 
-$resultado = mysqli_query($conn, $sql);
+    // Ejecutar consulta SQL
+    $resultado = mysqli_query($conn, $sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -41,17 +46,18 @@ $resultado = mysqli_query($conn, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citas</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
     <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </head>
 
 <body>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACION DE CITAS</h1>
+        <h1>VENTANA DE ADMINISTRACIÓN DE CITAS</h1>
         <div class="row">
             <div class="col-md-6">
-                <nav class="navbar bg-body-tertiary">
+                <nav class=" bg-body-tertiary">
                     <div class="container-fluid">
                         <form class="d-flex" method="post" action="citas.php">
                             <input class="form-control me-2" type="search" placeholder="Buscar por ID de Cita o Fecha" aria-label="Search" name="buscar">
@@ -101,16 +107,20 @@ $resultado = mysqli_query($conn, $sql);
                                 echo "<td>";
                                 echo "<form method='post' action='confirmar_cita.php'>";
                                 echo "<input type='hidden' name='id_cita' value='" . $fila['id_cita'] . "'>";
-                                echo "<button type='submit' name='confirmar_cita' id='confirmar_" . $fila['id_cita'] . "' class='btn btn-success confirmar-btn'>";
-                                echo "<i class='fas fa-check'></i>";
-                                echo "</button>";
+                                echo "<button type='submit' id='Confirmar' name='confirmar_cita' class='btn btn-success'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check2-square' viewBox='0 0 16 16'>
+                                <path d='M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5z'/>
+                                <path d='m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0'/>
+                                </svg>
+                                </button>";
                                 echo "</form>";
-
                                 echo "<form method='post' action='eliminar_cita.php'>";
                                 echo "<input type='hidden' name='id_cita' value='" . $fila['id_cita'] . "'>";
-                                echo "<button type='submit' name='eliminar_cita' class='btn btn-danger eliminar mb-2' onclick='return confirm(\"¿Estás seguro de eliminar esta cita?\");'>";
-                                echo "<i class='fas fa-trash-alt'></i>";
-                                echo "</button>";
+                                echo "<button type='submit' name='eliminar_cita' class='btn btn-danger eliminar mb-2' onclick='return confirm(\"¿Estás seguro de eliminar esta cita?\");'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash3' viewBox='0 0 16 16'>
+                                <path d='M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5'/>
+                                </svg>
+                                </button>";
                                 echo "</form>";
                                 echo "</td>";
                                 echo "</tr>";
@@ -119,23 +129,19 @@ $resultado = mysqli_query($conn, $sql);
                             echo "<tr><td colspan='12'>No se encontraron resultados.</td></tr>";
                         }
                         ?>
+                        <script>
+                            document.getElementById("Confirmar").addEventListener().click(function(){
+                                
+                            });
+                        </script>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const confirmButtons = document.querySelectorAll('.confirmar-btn');
-
-            confirmButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    button.style.display = 'none';
-                });
-            });
-        });
-    </script>
+    <?php
+    require_once "./inferior.php";
+    ?>
 </body>
 
 </html>
