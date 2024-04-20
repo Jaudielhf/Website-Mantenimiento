@@ -33,6 +33,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">Precio</th>
+                            <th scope="col">Anticipo</th>
                             <th scope="col">Acciones</th>
 
                         </tr>
@@ -48,8 +49,8 @@
                                 echo "<td><img src='../../img/" . $fila['imagen'] . "' alt='' width='80px'></td>";
                                 echo "<td>" . $fila['nombre'] . "</td>";
                                 echo "<td>" . $fila['descripcion'] . "</td>";
-                                echo "<td>" . $fila['precio'] . "</td>";
-
+                                echo "<td>$ " . $fila['precio'] . "</td>";
+                                echo "<td>$ " . $fila['anticipo']. "</td>";
                                 echo "<td>";
                                 echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_servicio'] . "'>Eliminar</button>";
                                 echo "<button class='btn btn-warning mb-2' onclick=\"window.location.href='actualizar_servicios.php?id=" . $fila['id_servicio'] . "'\">Actualizar</button>";

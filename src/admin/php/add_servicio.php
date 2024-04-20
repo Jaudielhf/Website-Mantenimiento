@@ -16,12 +16,13 @@ if (isset($_FILES['imagen'])) {
     // Obtener información adicional del formulario
     $nombre = $_POST['nombre'];
     $precio = $_POST['precio'];
+    $anticipo=$_POST['anticipo'];
     $descripcion = $_POST['descripcion'];
 
     // Insertar la información en la base de datos
-    $sql = "INSERT INTO servicios (nombre, precio, descripcion, imagen) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO servicios (nombre, precio, descripcion, imagen, anticipo) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sdss", $nombre, $precio, $descripcion, $nombre_imagen,);
+    mysqli_stmt_bind_param($stmt, "sdssd", $nombre, $precio, $descripcion, $nombre_imagen, $anticipo);
     mysqli_stmt_execute($stmt);
 
     // Verificar si la inserción fue exitosa

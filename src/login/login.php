@@ -9,23 +9,17 @@
 <body>
     <?php
     require_once "../MYSQL/conexion.php";
-
-        // Inicializar variables para almacenar mensajes de error
 $error = "";
 
-// Procesar el formulario de inicio de sesión
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener datos del formulario
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-
-    // Consulta SQL para verificar las credenciales del usuario
     $sql = "SELECT * FROM usuarios WHERE username = '$username' AND password = '$password'";
     $consultaEm="SELECT * FROM empleados WHERE username = '$username' AND password = '$password'";
     $resultado = mysqli_query($conn, $sql);
     $EmResult=mysqli_query($conn, $consultaEm);
-    // Verificar si se encontró un usuario con las credenciales proporcionadas
+
     if(mysqli_num_rows($EmResult) == 1)
     {
       session_start();
@@ -37,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (mysqli_num_rows($resultado) == 1) {
-        // Iniciar sesión y redirigir a la página de inicio
+
         session_start();
         $_SESSION['username'] = $username;
-        header("Location: ../users/index.php"); // Cambiar 'index.php' por la página a la que quieres redirigir
+        header("Location: ../users/index.php");
         exit();
 
     }else if($username =='admin23' && $password =='admin') {
@@ -51,8 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Nombre de usuario o contraseña incorrectos";
     }
 }
-
-// Cerrar la conexión
 $conn->close();
 ?>
 

@@ -72,9 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_cita'])) {
             // Contenido del correo de confirmación
             $mail->isHTML(true);
             $mail->Subject = 'Confirmación de cita';
-            $mail->Body = "Estimado $nombre_usuario,<br><br>Su cita para el servicio '$nombre_servicio' ha sido confirmada.<br>Fecha: $fecha_cita<br>Hora: $hora_cita<br>Descripción: $descripcion_cita<br><br>Gracias por confiar en nosotros.";
+            $mail->Body = "Estimado $nombre_usuario,<br>
+            <br>Su cita para el servicio '$nombre_servicio' ha sido confirmada.<br>
+            Fecha: $fecha_cita<br>
+            Hora: $hora_cita<br>
+            Descripción: $descripcion_cita<br>
+            <br>Gracias por confiar en nosotros.";
 
-            // Enviar correo
             $mail->send();
 
             echo "Correo de confirmación enviado a $email_usuario";
