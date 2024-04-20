@@ -119,7 +119,9 @@ require_once "../../MYSQL/conexion.php";
                         }
                         ?>
                         <script>
-                            
+                            document.getElementById("Confirmar").addEventListener().click(function(){
+                                
+                            });
                         </script>
                     </tbody>
                 </table>
