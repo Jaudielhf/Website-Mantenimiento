@@ -28,7 +28,8 @@ require_once "../../MYSQL/conexion.php";
         mantenimiento.usuarios AS u ON c.id_usuario = u.id_usuario
     JOIN 
         mantenimiento.empleados AS e ON c.id_empleado = e.id_empleado
-
+    WHERE 
+    e.username = '$username'
     ORDER BY 
         c.descripcion DESC 
     LIMIT 1000";
@@ -47,15 +48,18 @@ require_once "../../MYSQL/conexion.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citas</title>
     <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </head>
 
 <body>
+
     <div class="container mt-4">
         <h1>VENTANA DE ADMINISTRACION DE CITAS</h1>
         <div class="row">
             <div class="col-md-6">
-                <nav class="navbar bg-body-tertiary">
+                <nav class="bg-body-tertiary">
                     <div class="container-fluid">
                         <form class="d-flex" method="post" action="citas.php">
                             <input class="form-control me-2" type="search" placeholder="Buscar por ID de Cita o Fecha" aria-label="Search" name="buscar">
@@ -123,6 +127,12 @@ require_once "../../MYSQL/conexion.php";
             </div>
         </div>
     </div>
+    <div class="footer">
+    <?php
+    require_once "./inferior.php";
+    ?>
+    </div>
+   
 </body>
 
 </html>
