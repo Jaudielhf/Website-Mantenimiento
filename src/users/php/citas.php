@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../bootstrap-5.3.3-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AWkwn-ZpT6B30b4VO--Hw0vxxfAjPiAaa390-0-FSFTdQF6YZUVbJeXcxGOhzkMrrEIwstluGw7Lu_d9&currency=MXN"></script>
     <title>Agendar</title>
@@ -34,53 +32,30 @@
                             if (mysqli_num_rows($resultado) > 0) {
                                 while ($fila = mysqli_fetch_assoc($resultado)) {
                                     echo "
-                           <div class='input-group'>
-                            <span class='input-group-text'>Nombre completo</span>
-                            <input type='text' aria-label='Nombre' class='form-control' hidden value='" . $fila['id_usuario'] . "' name='id_user'>
-                            <input type='text' aria-label='Nombre' class='form-control' value='" . $fila['nombre'] . "' readonly>
-                            <input type='text' aria-label='Apellido Paterno' class='form-control'  value='" . $fila['apellido_pat'] . "' readonly>
-                            <input type='text' aria-label='Apellido Materno' class='form-control' value='" . $fila['apellido_mat'] . "' readonly>
-                        </div>
-                        <div class='input-group mb-3'>
-                            <input type='text' class='form-control' placeholder='Correo Electronico' aria-label='Recipient's username' aria-describedby='basic-addon2' value='" . $fila['email'] . "' readonly>
-                            <span class='input-group-text' id='basic-addon2'>Correo</span>
-                        </div>
-                        <div class='input-group mb-2'>
-                            <input type='tel' placeholder='Telefono' class='form-control' aria-label='Recipient's username' aria-describedby='basic-addon2' value='" . $fila['telefono'] . "' readonly>
-                        </div>
-                        ";
+                                    <div class='input-group'>
+                                        <span class='input-group-text'>Nombre completo</span>
+                                        <input type='text' aria-label='Nombre' class='form-control' hidden value='" . $fila['id_usuario'] . "' name='id_user'>
+                                        <input type='text' aria-label='Nombre' class='form-control' value='" . $fila['nombre'] . "' readonly>
+                                        <input type='text' aria-label='Apellido Paterno' class='form-control'  value='" . $fila['apellido_pat'] . "' readonly>
+                                        <input type='text' aria-label='Apellido Materno' class='form-control' value='" . $fila['apellido_mat'] . "' readonly>
+                                    </div>
+                                    <div class='input-group mb-3'>
+                                        <input type='text' class='form-control' placeholder='Correo Electrónico' aria-label='Recipient's username' aria-describedby='basic-addon2' value='" . $fila['email'] . "' readonly>
+                                        <span class='input-group-text' id='basic-addon2'>Correo</span>
+                                    </div>
+                                    <div class='input-group mb-2'>
+                                        <input type='tel' placeholder='Teléfono' class='form-control' aria-label='Recipient's username' aria-describedby='basic-addon2' value='" . $fila['telefono'] . "' readonly>
+                                    </div>";
                                 }
                             }
                             ?>
-                        <?php
-                    } else {
-                        echo "
-                            <div class='input-group'>
-                            
-                            <span class='input-group-text'>Nombre completo</span>
-                            
-                            <input type='text' aria-label='Nombre' class='form-control'>
-                            <input type='text' aria-label='Apellido Paterno' class='form-control'>
-                            <input type='text' aria-label='Apellido Materno' class='form-control'>
-                        </div>
-                        <div class='input-group mb-3'>
-                            <input type='text' class='form-control' placeholder='Correo Electronico' aria-label='Recipient's username' aria-describedby='basic-addon2'>
-                            <span class='input-group-text' id='basic-addon2'>Correo</span>
-                        </div>
-                        <div class='input-group mb-2'>
-                            <input type='tel' placeholder='Telefono' class='form-control' aria-label='Recipient's username' aria-describedby='basic-addon2'>
-                        </div>
-                            ";
-                    }
-                        ?>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="fecha">Fecha</label>
-                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="fecha">Fecha</label>
+                                    <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-6">
+                            <div class="col-6">
                             <div class="form-group">
                                 <label for="hora">Hora</label>
                                 <select class="form-select" id="hora" name="hora" required>
@@ -142,67 +117,53 @@
                                    WHERE '$fecha_actual' BETWEEN ae.fecha_inicio AND ae.fecha_fin
                                    AND '$hora_actual' BETWEEN ae.hora_inicio AND ae.hora_fin";
 
-                                $resultado = mysqli_query($conn, $sql);
-
-                                ?>
-
-                                <select class="form-select" aria-label="Default select example" name="empleado" required>
-                                    <option selected>Seleccione un empleado para la cita</option>
-
-                                    <?php
-                                    if (mysqli_num_rows($resultado) > 0) {
-                                        while ($fila = mysqli_fetch_array($resultado)) {
+                                    $resultado = mysqli_query($conn, $sql);
                                     ?>
-                                            <option value="<?php echo $fila['id_empleado']; ?>"><?php echo $fila['nombre']; ?></option>
-                                    <?php
+                                    <select class="form-select" aria-label="Default select example" name="empleado" required>
+                                        <option selected>Seleccione un empleado para la cita</option>
+                                        <?php
+                                        if (mysqli_num_rows($resultado) > 0) {
+                                            while ($fila = mysqli_fetch_array($resultado)) {
+                                                echo "<option value='" . $fila['id_empleado'] . "'>" . $fila['nombre'] . "</option>";
+                                            }
+                                        } else {
+                                            echo '<option value="" disabled>No hay empleados disponibles en este momento.</option>';
                                         }
-                                    } else {
-                                        echo '<option value="" disabled>No hay empleados disponibles en este momento.</option>';
-                                    }
-                                    ?>
-
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-floating">
+                                <textarea class="form-control" name="descripcion" placeholder="Escriba una breve descripción para la cita" id="floatingTextarea2" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Escriba una breve descripción para la cita</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="Anticipo">¿Desea realizar un anticipo?</label>
+                                <select id="validarOpciones" class="form-select" aria-label="Default select example" name="Validar" required onchange="PagoAnticipo(this);">
+                                    <option selected>Selecciona una opción</option>
+                                    <option value="Si">Sí</option>
+                                    <option value="No">No</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-floating">
-                            <textarea class="form-control" name="descripcion" placeholder="Escriba una breve Descripcion para la cita" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2">Escriba una breve Descripcion para la cita</label>
-                        </div>
-
-                        <?php
-
-                                            //
-                        if (isset($_SESSION['username'])) {
-                            $username = $_SESSION['username'];
-                            //consulta para el ticket
-                            echo "
-                            <div class='d-grid gap-2 d-md-block' >
-                            <!-- Button trigger modal -->
-                            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>
-                                Agendar cita
-                            </button>
-
-                            <!-- Modal -->
-                            <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-                                <div class='modal-dialog'>
-                                    <div class='modal-content'>
-                                        <div class='modal-header'>
-                                            <h1 class='modal-title fs-5' id='exampleModalLabel'>!Atencion¡</h1>
-                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Agendar cita
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">¡Atención!</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Esta a punto de agendar una cita, antes de enviar, favor de verificar sus datos para mejorar la experiencia en la estación de servicio seleccionada.
+                                            </div>
+                                            <div class="modal-footer" id="agendar">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-outline-success">Enviar</button>
+                                            </div>
                                         </div>
-                                        <div class='modal-body'>
-                                            Esta a punto de agendar una cita, antes de enviar, favor de verificar sus datos para mejorar la experiencia en la estacion de servicio seleccionada
-                                        </div>
-                                        <div class='modal-footer' id='agendar'>";
-                                        while ($fila = mysqli_fetch_array($resultado)) {
-
-                                           echo"                
-                                           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                           <input type='number' name='id' hidden  value='" . $fila['id_cita'] . "'>
-                                            <button type='submit' disabled class='btn btn-outline-success' >ENVIAR</button>
-                                        ";
-                                        }
-                                        echo"</div>
                                     </div>
                                 </div>
                             </div>
@@ -236,63 +197,89 @@
                     ?>
                 </div>
             </div>
-
             <div class="col-3 text-center mt-5">
-
-                            <h3>AQUI PUEDE REALIZAR SU ANTICIPO DE LA CITA</h3>
+                <h3>AQUÍ PUEDE REALIZAR SU ANTICIPO DE LA CITA</h3>
                 <div id="paypal-button-container"></div>
                 <script>
-                    // Render the PayPal button into #paypal-button-container
-                    paypal.Buttons({
-                        style: {
-                            color: 'blue',
-                            shape: 'pill'
-                        },
-                        // Call your server to set up the transaction
-                        createOrder: function(data, actions) {
-                            return actions.order.create({
-                                purchase_units: [{
-                                    amount: {
-                                        currency_code: 'MXN',
-                                        value: '150.00'
+                    function PagoAnticipoNoRequerido() {
+                        console.log("Pago anticipo no requerido seleccionado");
+                        document.getElementById("validarOpciones").setAttribute("onchange", "RealizarAnticipo();");
+                        document.getElementById("agendar").innerHTML = `
+                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                            <button type='submit' class='btn btn-outline-success'>Enviar</button>
+                        `;
+                        document.getElementById("paypal-button-container").innerHTML = "";
+                    }
+
+                    function PagoAnticipo(selectElement) {
+                        var realizarAnticipo = selectElement.value;
+                        if (realizarAnticipo === "Si") {
+                            var servicioId = document.getElementById("AnticipoServicio").value;
+                            if (servicioId) {
+                                fetch('obtener_anticipo.php', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                    },
+                                    body: 'servicio_id=' + encodeURIComponent(servicioId)
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Error al obtener el anticipo');
                                     }
-                                }]
-                            })
-                        },
-                        onApprove: function(data, actions) {
-                            actions.order.capture().then(function(detalles) {
-
-                                console.log(detalles);
-                                console.log(detalles.create_time);
-                                console.log(detalles.status);
-
-                                if (detalles.status == "COMPLETED") {
-                                    var enviarCita = document.getElementById("agendar");
-                                    var codigoHtml = `
-                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                    <button type='submit' class='btn btn-outline-success'>Enviar</button>
-                                        `;
-                                        enviarCita.innerHTML = codigoHtml;
-                                    
-                                }
-                            });
-                        },
-                        onCancel: function(data) {
-                            alert("Cancelado");
-                            console.log(data);
-
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    var anticipo = parseFloat(data.anticipo);
+                                    if (!isNaN(anticipo)) {
+                                        paypal.Buttons({
+                                            style: {
+                                                color: 'blue',
+                                                shape: 'pill'
+                                            },
+                                            createOrder: function(data, actions) {
+                                                return actions.order.create({
+                                                    purchase_units: [{
+                                                        amount: {
+                                                            currency_code: 'MXN',
+                                                            value: anticipo.toFixed(2)
+                                                        }
+                                                    }]
+                                                })
+                                            },
+                                            onApprove: function(data, actions) {
+                                                actions.order.capture().then(function(detalles) {
+                                                    if (detalles.status == "COMPLETED") {
+                                                        var enviarCita = document.getElementById("agendar");
+                                                        var codigoHtml = `
+                                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                                            <button type='submit' class='btn btn-outline-success'>Enviar</button>
+                                                        `;
+                                                        enviarCita.innerHTML = codigoHtml;
+                                                    }
+                                                });
+                                            },
+                                            onCancel: function(data) {
+                                                alert("Cancelado");
+                                                console.log(data);
+                                            }
+                                        }).render('#paypal-button-container');
+                                    } else {
+                                        console.error('El anticipo recibido no es un número válido:', data.anticipo);
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error al obtener el anticipo:', error.message);
+                                });
+                            }
+                        } else if (realizarAnticipo == "No") {
+                            PagoAnticipoNoRequerido();
                         }
-
-
-
-                    }).render('#paypal-button-container');
+                    }
                 </script>
-
-
-
             </div>
         </div>
-
+    </div>
 </body>
 
 </html>
