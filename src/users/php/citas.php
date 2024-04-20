@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../bootstrap-5.3.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <!-- Include the PayPal JavaScript SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=AWkwn-ZpT6B30b4VO--Hw0vxxfAjPiAaa390-0-FSFTdQF6YZUVbJeXcxGOhzkMrrEIwstluGw7Lu_d9&currency=MXN"></script>
@@ -88,7 +90,7 @@
                                 <input type="date" class="form-control" id="fecha" name="fecha" required>
                             </div>
                         </div>
-                       
+
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="hora">Hora</label>
@@ -313,10 +315,10 @@
                                     // Limpiar los campos de fecha y hora seleccionados
                                     document.getElementById("fecha").value = "";
                                     document.getElementById("hora").value = "";
-                                }else{
+                                } else {
                                     alert("Horario disponible");
-                                
-                                    
+
+
                                 }
                             })
                             .catch(error => {
@@ -412,7 +414,10 @@
             </div>
 
         </div>
-
+    </div>
+                    <?php
+                    require_once("./inferior.php");
+                    ?>
         </body>
 
 </html>

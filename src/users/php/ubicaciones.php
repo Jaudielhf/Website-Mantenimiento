@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 
     <title>Contacto</title>
@@ -41,9 +42,11 @@
                 </div>
             </div>
         </div>
+    </div>
 
-
-
+        <?php
+        require_once "./inferior.php";
+        ?>
 </body>
 
 </html>
