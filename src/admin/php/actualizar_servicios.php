@@ -11,6 +11,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         // Recibir y sanitizar los datos del formulario
         $nombre = mysqli_real_escape_string($conn, $_POST['nombre']);
         $precio = mysqli_real_escape_string($conn, $_POST['precio']);
+        $anticipo=mysqli_real_escape_string($conn, $_POST['anticipo']);
         $descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
 
         // Verificar si se subió una nueva imagen
@@ -24,10 +25,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             move_uploaded_file($imagen_tmp, $imagen_ruta);
 
             // Actualizar el registro en la base de datos, incluyendo la imagen
-            $sql = "UPDATE servicios SET nombre='$nombre', precio='$precio', descripcion='$descripcion', imagen='$imagen_nombre' WHERE id_servicio='$id_servicio'";
+            $sql = "UPDATE servicios SET nombre='$nombre', precio='$precio', descripcion='$descripcion', imagen='$imagen_nombre', anticipo='$anticipo' WHERE id_servicio='$id_servicio'";
         } else {
             // Actualizar el registro en la base de datos sin cambiar la imagen
-            $sql = "UPDATE servicios SET nombre='$nombre', precio='$precio', descripcion='$descripcion' WHERE id_servicio='$id_servicio'";
+            $sql = "UPDATE servicios SET nombre='$nombre', precio='$precio', descripcion='$descripcion', anticipo ='$anticipo' WHERE id_servicio='$id_servicio'";
         }
 
         $resultado = mysqli_query($conn, $sql);
@@ -139,6 +140,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             
             <label for="precio">Precio:</label>
             <input type="text" id="precio" name="precio" value="<?php echo htmlspecialchars($servicio['precio']); ?>"><br>
+
+            <label for="precio">Anticipo:</label>
+            <input type="text" id="anticipo" name="anticipo" value="<?php echo htmlspecialchars($servicio['anticipo']); ?>"><br>
             
             <label for="descripcion">Descripción:</label><br>
             <textarea id="descripcion" name="descripcion"><?php echo htmlspecialchars($servicio['descripcion']); ?></textarea><br>

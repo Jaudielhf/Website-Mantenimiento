@@ -22,7 +22,7 @@
 
     ?>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACION DE USUARIOS</h1>
+        <h1>VENTANA DE ADMINISTRACIÓN DE USUARIOS</h1>
         <div class="row mt-5">
             <div class="col-sm-6 col-md-8">
                 <table class="table table-striped table-hover">

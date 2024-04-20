@@ -36,7 +36,7 @@
               </div>
               ";
             } else {
-              echo "<a class='nav-link' href='./../login/sign.php'>Iniciar sesión</a>";
+              echo "<a class='nav-link' href='../../login/sign.php'>Iniciar sesión</a>";
             }
             ?>
          

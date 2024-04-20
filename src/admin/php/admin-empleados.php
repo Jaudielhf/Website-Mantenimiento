@@ -33,7 +33,7 @@
     ?>
 
     <div class="container mt-4">
-        <h1 class="mb-4">VENTANA DE ADMINISTRACION DE EMPLEADOS</h1>
+        <h1 class="mb-4">VENTANA DE ADMINISTRACIÓN DE EMPLEADOS</h1>
         <div class="row">
             <div class="col">
                 <div class="table-responsive">

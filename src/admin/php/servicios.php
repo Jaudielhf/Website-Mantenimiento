@@ -33,6 +33,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">Precio</th>
+                            <th scope="col">Anticipo</th>
                             <th scope="col">Acciones</th>
 
                         </tr>
@@ -48,8 +49,8 @@
                                 echo "<td><img src='../../img/" . $fila['imagen'] . "' alt='' width='80px'></td>";
                                 echo "<td>" . $fila['nombre'] . "</td>";
                                 echo "<td>" . $fila['descripcion'] . "</td>";
-                                echo "<td>" . $fila['precio'] . "</td>";
-
+                                echo "<td>$ " . $fila['precio'] . "</td>";
+                                echo "<td>$ ".$fila['anticipo'] . "</td>";
                                 echo "<td>";
                                 echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_servicio'] . "'>Eliminar</button>";
                                 echo "<button class='btn btn-warning mb-2' onclick=\"window.location.href='actualizar_servicios.php?id=" . $fila['id_servicio'] . "'\">Actualizar</button>";
@@ -127,7 +128,10 @@
                                 </div>
                                 <div class="row g-3 mt-2">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Precio" aria-label="Last name" name="precio">
+                                        <input type="text" class="form-control" placeholder="Precio" aria-label="Precio" name="precio">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Anticipo" aria-label="Anticipo" name="anticipo">
                                     </div>
                                 </div>
 
@@ -161,28 +165,7 @@
             </div>
         </div>
     </div>
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nombre = $_POST['nombre'];
-        $apellidoP = $_POST['apellido_pat'];
-        $apellidoM = $_POST['apellido_mat'];
-        $Username = $_POST['username'];
-        $correo = $_POST['email'];
-        $contraseña = $_POST['pass'];
-        $telefono = $_POST['tel'];
-
-        $sql = "INSERT INTO empleados (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
-
-        $resultado = mysqli_query($conn, $sql);
-        if ($resultado) {
-            echo "<script>alert('Empleado registrado correctamente');</script>";
-            echo "<script>window.location.href='./admin-empleados.php';</script>";
-        } else {
-            echo "<p>Error al registrar usuario</p>";
-        }
-        $conn->close();
-    }
-    ?>
+   
 </body>
 
 </html>

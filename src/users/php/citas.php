@@ -88,6 +88,7 @@
                                 <input type="date" class="form-control" id="fecha" name="fecha" required>
                             </div>
                         </div>
+                       
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="hora">Hora</label>
@@ -96,10 +97,10 @@
                         </div>
 
 
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label for="tipo">Tipo de Servicio</label>
-                                <select class="form-select" aria-label="Default select example" name="servicio" required>
+                                <select id="AnticipoServicio" class="form-select" aria-label="Default select example" name="servicio" required onchange="PagoAnticipo(this);">
                                     <option selected>Selecciona un tipo de servicio</option>
                                     <?php
 
@@ -121,7 +122,31 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="estacion">Estaciones</label>
+                                <Select class="form-select" aria-label="estaciones" name="estaciones" required>
+                                    <option selected>Seleccione una estacion</option>
+                                    <?php
+                                    $consulta_estaciones = "SELECT * FROM estaciones";
+
+                                    $resultado_estaciones = mysqli_query($conn, $consulta_estaciones);
+
+                                    if (mysqli_num_rows($resultado_estaciones) > 0) {
+                                        while ($fila = mysqli_fetch_array($resultado_estaciones)) {
+
+                                    ?>
+                                            <option value="<?php echo $fila['id_estaciones']; ?>"> <?php echo $fila['nombre'] ?></option>
+                                    <?php
+
+                                        }
+                                    }
+                                    ?>
+
+                                </Select>
+                            </div>
+                        </div>
+                        <div class="col-4">
                             <div class="form-group">
                                 <label for="empleado">Empleado</label>
                                 <?php
@@ -144,6 +169,7 @@
                                 $resultado = mysqli_query($conn, $sql);
 
                                 ?>
+
 
                                 <select class="form-select" aria-label="Default select example" name="empleado" required>
                                     <option selected>Seleccione un empleado para la cita</option>
@@ -170,17 +196,26 @@
                             <textarea class="form-control" name="descripcion" placeholder="Escriba una breve Descripcion para la cita" id="floatingTextarea2" style="height: 100px"></textarea>
                             <label for="floatingTextarea2">Escriba una breve Descripcion para la cita</label>
                         </div>
+                        <div class="form-group">
+                            <label for="Anticipo">¿DESEA REALIZAR ANTICIPO?</label>
+                            <select id="validarOpciones" class="form-select" aria-label="Default select example" name="Validar" required onchange="PagoAnticipo(this);">
+                                <option selected>Selecciona una opción</option>
+                                <option value="Si">Sí</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
 
                         <?php
 
-                                            //
+                        //
                         if (isset($_SESSION['username'])) {
                             $username = $_SESSION['username'];
                             //consulta para el ticket
                             echo "
                             <div class='d-grid gap-2 d-md-block' >
                             <!-- Button trigger modal -->
-                            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>
+                            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' >
                                 Agendar cita
                             </button>
 
@@ -196,15 +231,15 @@
                                             Esta a punto de agendar una cita, antes de enviar, favor de verificar sus datos para mejorar la experiencia en la estacion de servicio seleccionada
                                         </div>
                                         <div class='modal-footer' id='agendar'>";
-                                        while ($fila = mysqli_fetch_array($resultado)) {
+                            while ($fila = mysqli_fetch_array($resultado)) {
 
-                                           echo"                
+                                echo "                
                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
                                            <input type='number' name='id' hidden  value='" . $fila['id_cita'] . "'>
-                                            <button type='submit' disabled class='btn btn-outline-success' >ENVIAR</button>
+                                            <button type='submit' hidden class='btn btn-outline-success' >ENVIAR</button>
                                         ";
-                                        }
-                                        echo"</div>
+                            }
+                            echo "</div>
                                     </div>
                                 </div>
                             </div>
@@ -249,62 +284,135 @@
                         </form>
                 </div>
             </div>
+
             <div class="col-3 text-center mt-5">
 
-                            <h3>AQUI PUEDE REALIZAR SU ANTICIPO DE LA CITA</h3>
+                <h3>AQUI PUEDE REALIZAR SU ANTICIPO DE LA CITA</h3>
                 <div id="paypal-button-container"></div>
 
 
                 <script>
-                    // Render the PayPal button into #paypal-button-container
-                    paypal.Buttons({
-                        style: {
-                            color: 'blue',
-                            shape: 'pill'
-                        },
-                        // Call your server to set up the transaction
-                        createOrder: function(data, actions) {
-                            return actions.order.create({
-                                purchase_units: [{
-                                    amount: {
-                                        currency_code: 'MXN',
-                                        value: '150.00'
-                                    }
-                                }]
+                    // Función para verificar la disponibilidad de la fecha y hora seleccionadas
+                    function verificarDisponibilidad() {
+                        var fechaSeleccionada = document.getElementById("fecha").value;
+                        var horaSeleccionada = document.getElementById("hora").value;
+
+                        // Realizar una solicitud al servidor para verificar la disponibilidad en la base de datos
+                        fetch('verificar_disponibilidad.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: 'fecha=' + encodeURIComponent(fechaSeleccionada) + '&hora=' + encodeURIComponent(horaSeleccionada)
                             })
-                        },
-                        onApprove: function(data, actions) {
-                            actions.order.capture().then(function(detalles) {
-
-                                console.log(detalles);
-                                console.log(detalles.create_time);
-                                console.log(detalles.status);
-
-                                if (detalles.status == "COMPLETED") {
-                                    var enviarCita = document.getElementById("agendar");
-                                    var codigoHtml = `
-                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                    <button type='submit' class='btn btn-outline-success'>Enviar</button>
-                                        `;
-                                        enviarCita.innerHTML = codigoHtml;
+                            .then(response => response.json())
+                            .then(data => {
+                                // Si hay citas programadas para la fecha y hora seleccionadas, mostrar un mensaje de error
+                                if (data.disponible === false) {
+                                    alert('La fecha y hora seleccionadas ya están ocupadas. Por favor, elija otra.');
+                                    // Limpiar los campos de fecha y hora seleccionados
+                                    document.getElementById("fecha").value = "";
+                                    document.getElementById("hora").value = "";
+                                }else{
+                                    alert("Horario disponible");
+                                
                                     
                                 }
+                            })
+                            .catch(error => {
+                                console.error('Error al verificar la disponibilidad:', error);
+                                // Manejar el error de verificación de disponibilidad
                             });
-                        },
-                        onCancel: function(data) {
-                            alert("Cancelado");
-                            console.log(data);
+                    }
 
+                    function PagoAnticipoNoRequerido() {
+                        console.log("Pago anticipo no requerido seleccionado");
+                        // Restablecer el evento onchange para que RealizarAnticipo() se ejecute cuando cambie la selección
+                        document.getElementById("validarOpciones").setAttribute("onchange", "RealizarAnticipo();");
+                        // Restablecer el contenido del elemento con id "agendar"
+                        document.getElementById("agendar").innerHTML = `
+            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+            <button type='submit' class='btn btn-outline-success' onclick='verificarDisponibilidad();'>Enviar</button>
+        `;
+                        // Limpiar el contenedor de los botones de PayPal
+                        document.getElementById("paypal-button-container").innerHTML = "";
+                    }
+
+                    function PagoAnticipo(selectElement) {
+                        var realizarAnticipo = selectElement.value;
+                        if (realizarAnticipo === "Si") {
+                            var servicioId = document.getElementById("AnticipoServicio").value;
+                            if (servicioId) {
+                                fetch('obtener_anticipo.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                        },
+                                        body: 'servicio_id=' + encodeURIComponent(servicioId)
+                                    })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error('Error al obtener el anticipo');
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(data => {
+                                        var anticipo = parseFloat(data.anticipo);
+                                        if (!isNaN(anticipo)) {
+                                            paypal.Buttons({
+                                                style: {
+                                                    color: 'blue',
+                                                    shape: 'pill'
+                                                },
+                                                createOrder: function(data, actions) {
+                                                    return actions.order.create({
+                                                        purchase_units: [{
+                                                            amount: {
+                                                                currency_code: 'MXN',
+                                                                value: anticipo.toFixed(2)
+                                                            }
+                                                        }]
+                                                    })
+                                                },
+                                                onApprove: function(data, actions) {
+                                                    actions.order.capture().then(function(detalles) {
+                                                        if (detalles.status == "COMPLETED") {
+                                                            var enviarCita = document.getElementById("agendar");
+                                                            var codigoHtml = `
+                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                        <button type='submit' class='btn btn-outline-success' onclick='verificarDisponibilidad();'>Enviar</button>
+                                    `;
+                                                            enviarCita.innerHTML = codigoHtml;
+                                                            // Peticion a servidor para enviar el ticket
+                                                        }
+                                                    });
+                                                },
+                                                onCancel: function(data) {
+                                                    alert("Cancelado");
+                                                    console.log(data);
+                                                }
+                                            }).render('#paypal-button-container');
+                                        } else {
+                                            console.error('El anticipo recibido no es un número válido:', data.anticipo);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error al obtener el anticipo:', error.message);
+                                        // Manejar el error al obtener el anticipo
+                                    });
+                            }
+                        } else if (realizarAnticipo == "No") {
+                            PagoAnticipoNoRequerido();
                         }
-
-
-
-                    }).render('#paypal-button-container');
+                    }
                 </script>
+
+
+
             </div>
 
         </div>
 
-</body>
+        </body>
 
 </html>

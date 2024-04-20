@@ -17,25 +17,21 @@
     require_once "../../MYSQL/conexion.php";
 
     // Consulta SQL para obtener los datos de la tabla
-    $sql = "SELECT * FROM servicios";
+    $sql = "SELECT * FROM Estaciones";
     $resultado = mysqli_query($conn, $sql);
 
     ?>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACIÓN DE SERVICIOS</h1>
+        <h1>VENTANA DE ADMINISTRACIÓN DE ESTACIONES</h1>
         <div class="row mt-5">
             <div class="col-sm-4 col-md-10">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Imagen</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Anticipo</th>
                             <th scope="col">Acciones</th>
-
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -45,16 +41,16 @@
                             // Iterar sobre cada fila de resultados
                             while ($fila = mysqli_fetch_assoc($resultado)) {
                                 echo "<tr>";
-                                echo "<td>" . $fila['id_servicio'] . "</td>";
-                                echo "<td><img src='../../img/" . $fila['imagen'] . "' alt='' width='80px'></td>";
+                                echo "<td>" . $fila['id_estaciones'] . "</td>";
                                 echo "<td>" . $fila['nombre'] . "</td>";
-                                echo "<td>" . $fila['descripcion'] . "</td>";
-                                echo "<td>$ " . $fila['precio'] . "</td>";
-                                echo "<td>$ " . $fila['anticipo']. "</td>";
                                 echo "<td>";
-                                echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_servicio'] . "'>Eliminar</button>";
-                                echo "<button class='btn btn-warning mb-2' onclick=\"window.location.href='actualizar_servicios.php?id=" . $fila['id_servicio'] . "'\">Actualizar</button>";
-
+                                echo "<button class='btn btn-danger eliminar mb-2' data-id='" . $fila['id_estaciones'] . "'>Eliminar</button>";
+                                echo "<form action='actualizar_estaciones.php' method='post'>";
+                                echo "<input type='hidden' name='id_estaciones' value='" . $fila['id_estaciones'] . "'>";
+                                echo "<td>";
+                                echo "<button type='submit' class='btn btn-primary' name='actualizar'>Actualizar</button>";
+                                echo "</td>";
+                                echo "</form>";
                                 echo "</td>";
 
                                 echo "</tr>";
@@ -87,10 +83,10 @@
                     });
 
                     // Función para enviar una solicitud al servidor para eliminar el registro
-                    function eliminarRegistro(id_servicio) {
+                    function eliminarRegistro(id_estaciones) {
                         // Enviar una solicitud AJAX al servidor para eliminar el registro
                         var xhr = new XMLHttpRequest();
-                        xhr.open('POST', './del_servicio.php', true);
+                        xhr.open('POST', './del_estaciones.php', true);
                         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                         xhr.onload = function() {
                             // Manejar la respuesta del servidor
@@ -103,7 +99,7 @@
                             }
                         };
                         // Enviar el ID del registro como datos de formulario
-                        xhr.send('id_servicio=' + id_servicio);
+                        xhr.send('id_estaciones=' + id_estaciones);
                     }
 
 
@@ -112,41 +108,21 @@
             <div class="col-9 col-md-2 ">
                 <p>
                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                        Agregar Servicio
+                        Agregar Estaciones
                     </button>
                 </p>
                 <div style="min-height: 120px;">
                     <div class="collapse collapse-horizontal" id="collapseWidthExample">
                         <div class="card card-body" style="width: 300px;">
-                            <form action="add_servicio.php" method="post" enctype="multipart/form-data">
+                            <form action="add_estaciones.php" method="post" enctype="multipart/form-data">
                                 <div class="row g-3">
 
                                     <div class="col ">
-                                        <input type="text" class="form-control" placeholder="Servicio" aria-label="First name" name="nombre">
+                                        <input type="text" class="form-control" placeholder="Estacion" aria-label="First name" name="nombre">
                                     </div>
 
                                 </div>
-                                <div class="row g-3 mt-2">
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="Precio" aria-label="Last name" name="precio">
-                                    </div>
-                                </div>
-
-                                <div class="row g-3 mt-2">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" name="descripcion" placeholder="Escriba una breve Descripcion para la cita" id="floatingTextarea2" style="height: 100px"></textarea>
-                                        <label for="floatingTextarea2">Descripcion</label>
-                                    </div>
-                                </div>
-                                <div class="row g-3 mt-2">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            
-                                            <input type="file" class="form-control" id="inputGroupFile01" name="imagen">
-                                        </div>
-                                    </div>
-                                </div>
-
+                                
                                 <div class="row g-3 mt-3">
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary">Agregar</button>
@@ -162,28 +138,7 @@
             </div>
         </div>
     </div>
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nombre = $_POST['nombre'];
-        $apellidoP = $_POST['apellido_pat'];
-        $apellidoM = $_POST['apellido_mat'];
-        $Username = $_POST['username'];
-        $correo = $_POST['email'];
-        $contraseña = $_POST['pass'];
-        $telefono = $_POST['tel'];
-
-        $sql = "INSERT INTO empleados (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
-
-        $resultado = mysqli_query($conn, $sql);
-        if ($resultado) {
-            echo "<script>alert('Empleado registrado correctamente');</script>";
-            echo "<script>window.location.href='./admin-empleados.php';</script>";
-        } else {
-            echo "<p>Error al registrar usuario</p>";
-        }
-        $conn->close();
-    }
-    ?>
+   
 </body>
 
 </html>

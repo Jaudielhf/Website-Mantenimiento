@@ -2,10 +2,6 @@
 require_once "./superior.php";
 require_once "../../MYSQL/conexion.php";
 
-$resultado = null;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
-    $buscar = $_POST['buscar'];
 
     $sql = "SELECT 
         c.id_cita,
@@ -14,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
         c.id_servicio, 
         s.nombre AS nombre_servicio, 
         s.precio AS precio_servicio,
+        s.anticipo as anticipo_servicio,
         c.id_usuario, 
         u.nombre AS nombre_usuario, 
         u.apellido_pat AS apellido_paterno, 
@@ -31,16 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
         mantenimiento.usuarios AS u ON c.id_usuario = u.id_usuario
     JOIN 
         mantenimiento.empleados AS e ON c.id_empleado = e.id_empleado
-    WHERE 
-        c.id_cita = '$buscar' OR
-        c.fecha = '$buscar'
+
     ORDER BY 
         c.descripcion DESC 
     LIMIT 1000";
 
     // Ejecutar consulta SQL
     $resultado = mysqli_query($conn, $sql);
-}
+
 
 ?>
 
@@ -83,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
                             <th scope="col">Empleado</th>
                             <th scope="col">Servicio</th>
                             <th scope="col">Precio</th>
+                            <th scope="col">Anticipo</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Fecha de la cita</th>
                             <th scope="col">Hora de la cita</th>
@@ -101,14 +97,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
                                 echo "<td>" . $fila['telefono_usuario'] . "</td>";
                                 echo "<td>" . $fila['nombre_empleado'] . "</td>";
                                 echo "<td>" . $fila['nombre_servicio'] . "</td>";
-                                echo "<td>" . $fila['precio_servicio'] . "</td>";
+                                echo "<td>$" . $fila['precio_servicio'] . "</td>";
+                                echo "<td>$ " . $fila['anticipo_servicio'] . "</td>";
                                 echo "<td>" . $fila['descripcion_cita'] . "</td>";
                                 echo "<td>" . $fila['fechas'] . "</td>";
                                 echo "<td>" . $fila['hora'] . "</td>";
                                 echo "<td>";
                                 echo "<form method='post' action='confirmar_cita.php'>";
                                 echo "<input type='hidden' name='id_cita' value='" . $fila['id_cita'] . "'>";
-                                echo "<button type='submit' name='confirmar_cita' class='btn btn-success'>Confirmar</button>";
+                                echo "<button type='submit' id='Confirmar' name='confirmar_cita' class='btn btn-success'>Confirmar</button>";
                                 echo "</form>";
                                 echo "<form method='post' action='eliminar_cita.php'>";
                                 echo "<input type='hidden' name='id_cita' value='" . $fila['id_cita'] . "'>";
@@ -121,6 +118,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
                             echo "<tr><td colspan='12'>No se encontraron resultados.</td></tr>";
                         }
                         ?>
+                        <script>
+                            
+                        </script>
                     </tbody>
                 </table>
             </div>
