@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id_empleado'])) {
+    header("Location: ../../login/login.php");
+    exit();
+}
+
+require_once "../MYSQL/conexion.php";
+
+$id_empleado = $_SESSION['id_empleado'];
+$sql = "SELECT nombre FROM empleados WHERE id_empleado = $id_empleado";
+$resultado = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($resultado) == 1) {
+    $empleado = mysqli_fetch_assoc($resultado);
+    $nombreEmpleado = $empleado['nombre'];
+} else {
+    $nombreEmpleado = "Nombre de Empleado Desconocido";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,18 +45,14 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="./php/citas.php">Citas</a>
+                            <a class="nav-link" href="./php/citas_completo.php">Citas</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Administrar
                             </a>
                             <ul class="dropdown-menu">
-
                                 <li><a class="dropdown-item" href="./php/admin-user.php">Usuarios</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
                                 <li><a class="dropdown-item" href="./php/servicios.php">Servicios</a></li>
                             </ul>
 
@@ -46,32 +64,21 @@
 
                 </div>
                 <div class="navbar-nav">
-          <div class="nav-item">
-            <?php
-            // Iniciar sesión (si no lo has hecho aún)
-            session_start();
-
-            // Verificar si el nombre de usuario/empleado está almacenado en la variable de sesión
-            if (isset($_SESSION['username'])) {
-              $username = $_SESSION['username'];
-              echo "<p class='nav-link'>Bienvenido, $username</p>";
-            } else {
-              echo "<a class='nav-link' href='./../login/sign.php'>Iniciar sesión</a>";
-            }
-            ?>
-          </div>
-          <div class="nav-item">
-
-            <a class="nav-link" href="./../login/logout.php">Cerrar sesión</a>
-          </div>
-        </div>
+                    <div class="nav-item">
+                        <?php
+                        echo "<p class='nav-link'>Bienvenido, $nombreEmpleado</p>";
+                        ?>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="../login/logout.php">Cerrar sesión</a>
+                    </div>
+                </div>
             </div>
         </nav>
         <div class="container">
             <div class="row mt-4 text-center">
                 <H1>VENTANA DE ADMINISTRACIÓN</H1>
                 <div class="col mt-5">
-
 
                     <div class="container">
                         <div class="row">
@@ -87,7 +94,7 @@
                                         <div class="card-data">
                                             <p class="title">Administrar Usuarios
                                             </p>
-                                            <p>En esta seccion podra administrar a los usuarios registrados en la pagina.</p>
+                                            <p>En esta sección podrá administrar a los usuarios registrados en la página.</p>
                                             <button onclick="location.href='./php/admin-user.php'" class="button">Usuarios</button>
                                         </div>
                                     </div>
@@ -101,13 +108,13 @@
                                         <div class="img">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="100%" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
                                                 <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" />
-                                                <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5" />
+                                                <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5" />
                                             </svg>
                                         </div>
                                         <div class="card-data">
                                             <p class="title">Realizar Pago
                                             </p>
-                                            <p>En esta seccion podra realizar el pago al servicio</p>
+                                            <p>En esta sección podrá realizar el pago al servicio</p>
                                             <button onclick="location.href='./php/pago.php'" class="button">Empleados</button>
                                         </div>
                                     </div>
@@ -125,7 +132,7 @@
                                         <div class="card-data">
                                             <p class="title">Administrar Servicios
                                             </p>
-                                            <p>En esta seccion podra administrar los servicios registrados en la pagina.</p>
+                                            <p>En esta sección podrá administrar los servicios registrados en la página.</p>
                                             <button onclick="location.href='./php/servicios.php'" class="button">Servicios</button>
                                         </div>
                                     </div>
@@ -139,13 +146,13 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="100%" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
                                                 <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0" />
                                                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
-                                                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z" />
+                                                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5" />
                                             </svg>
                                         </div>
                                         <div class="card-data">
                                             <p class="title">Administrar Citas
                                             </p>
-                                            <p>En esta seccion podra administrar las Citas registrados en la pagina.</p>
+                                            <p>En esta sección podrá administrar las Citas registradas en la página.</p>
                                             <button onclick="location.href='./php/citas.php'" class="button">Citas</button>
                                         </div>
                                     </div>
@@ -154,8 +161,6 @@
 
                         </div>
                     </div>
-
-
 
                 </div>
             </div>

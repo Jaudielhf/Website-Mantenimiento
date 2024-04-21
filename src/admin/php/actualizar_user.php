@@ -34,6 +34,7 @@
 <body>
     <?php
     if (isset($_POST['id_usuario']) && !empty($_POST['id_usuario'])) {
+        require_once "./superior.php";
         require_once "../../MYSQL/conexion.php";
         $id_usuario = $_POST['id_usuario'];
         $sql = "SELECT * FROM usuarios WHERE id_usuario = '$id_usuario'";

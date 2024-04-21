@@ -1,5 +1,4 @@
 <?php
-// Establecer conexión con la base de datos
 require_once "../../MYSQL/conexion.php";
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
@@ -7,11 +6,9 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Verifica si se recibió una solicitud POST
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_cita'])) {
     $id_cita = $_POST['id_cita'];
 
-    // Realiza la consulta para obtener los detalles de la cita
     $sql = "SELECT 
                 c.id_cita,
                 c.horario AS hora,
@@ -44,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_cita'])) {
     if ($resultado && mysqli_num_rows($resultado) > 0) {
         $fila = mysqli_fetch_assoc($resultado);
 
-        // Detalles de la cita
         $nombre_usuario = $fila['nombre_usuario'];
         $email_usuario = $fila['email'];
         $fecha_cita = $fila['fechas'];
@@ -52,29 +48,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_cita'])) {
         $nombre_servicio = $fila['nombre_servicio'];
         $descripcion_cita = $fila['descripcion_cita'];
 
-        // Configura PHPMailer para enviar el correo de confirmación
         $mail = new PHPMailer(true);
 
         try {
-            // Configuración del servidor SMTP (usando Gmail como ejemplo)
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'cesarneri803@gmail.com'; // Tu dirección de correo de Gmail
-            $mail->Password = 'kyoi thod ximj mipk'; // Tu contraseña de Gmail
+            $mail->Username = 'cesarneri803@gmail.com';
+            $mail->Password = 'kyoi thod ximj mipk';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            // Configurar remitente y destinatario
             $mail->setFrom('mantenimientoyreparaciones123@gmail.com', 'Mantenimiento y Reparaciones');
             $mail->addAddress($email_usuario, $nombre_usuario);
 
-            // Contenido del correo de confirmación
             $mail->isHTML(true);
             $mail->Subject = 'Confirmación de cita';
-            $mail->Body = "Estimado $nombre_usuario,<br><br>Su cita para el servicio '$nombre_servicio' ha sido confirmada.<br>Fecha: $fecha_cita<br>Hora: $hora_cita<br>Descripción: $descripcion_cita<br><br>Gracias por confiar en nosotros.";
+            $mail->Body = "Estimado $nombre_usuario,<br>
+            <br>Su cita para el servicio '$nombre_servicio' ha sido confirmada.<br>
+            Fecha: $fecha_cita<br>
+            Hora: $hora_cita<br>
+            Descripción: $descripcion_cita<br>
+            <br>Gracias por confiar en nosotros.";
 
-            // Enviar correo
             $mail->send();
 
             echo "Correo de confirmación enviado a $email_usuario";

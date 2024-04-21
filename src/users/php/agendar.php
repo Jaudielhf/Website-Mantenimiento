@@ -1,43 +1,91 @@
 <?php
 require_once "../../MYSQL/conexion.php";
-require_once "../../../vendor/autoload.php"; // Asegúrate de la ruta correcta al autoload de PHPMailer
+require_once "../../../vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_usuario = $_POST['id_user'];
-    $id_servicio = $_POST['servicio'];
-    $fecha = $_POST['fecha'];
-    $hora = $_POST['hora'];
-    $id_empleado = $_POST['empleado'];
-    $descripcion = $_POST['descripcion'];
+    $id_usuario = mysqli_real_escape_string($conn, $_POST['id_user']);
+    $id_servicio = mysqli_real_escape_string($conn, $_POST['servicio']);
+    $id_estaciones = mysqli_real_escape_string($conn, $_POST['estaciones']);
+    $fecha = mysqli_real_escape_string($conn, $_POST['fecha']);
+    $hora = mysqli_real_escape_string($conn, $_POST['hora']);
+    $id_empleado = mysqli_real_escape_string($conn, $_POST['empleado']);
+    $descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
+    $anticipo = mysqli_real_escape_string($conn, $_POST['anticipo']);
 
-    // Insertar la cita en la base de datos
-    $sql_insert_cita = "INSERT INTO citas (id_usuario, id_servicio, fecha, horario, id_empleado, descripcion) 
-                        VALUES ('$id_usuario', '$id_servicio', '$fecha', '$hora', '$id_empleado', '$descripcion')";
+    $inicio_jornada = strtotime(date('Y-m-d 07:00:00', strtotime($fecha)));
+    $fin_jornada = strtotime(date('Y-m-d 17:00:00', strtotime($fecha)));
+    $fecha_hora_cita = strtotime("$fecha $hora");
+
+    if ($fecha_hora_cita < $inicio_jornada || $fecha_hora_cita > $fin_jornada) {
+        echo "<script>alert('La hora de la cita está fuera del horario laboral (7am - 5pm).');</script>";
+        echo "<script>window.location.href='./ver_citas.php';</script>";
+        exit;
+    }
+
+    $sql_check_cita_otros_usuarios = "SELECT * FROM citas 
+                                       WHERE fecha = '$fecha' 
+                                         AND horario = '$hora' 
+                                         AND id_empleado = '$id_empleado' 
+                                         AND id_usuario != '$id_usuario'";
+
+    $result_check_cita_otros_usuarios = mysqli_query($conn, $sql_check_cita_otros_usuarios);
+
+    if (mysqli_num_rows($result_check_cita_otros_usuarios) > 0) {
+        echo "<script>alert('Otro usuario tiene una cita agendada a esta fecha y hora con este empleado. Por favor, elige otra fecha u hora.');";
+        echo "window.location.href='./ver_citas.php';</script>";
+        exit;
+    }
+
+    $sql_check_cita_empleado = "SELECT * FROM citas 
+                                WHERE fecha = '$fecha' 
+                                  AND horario = '$hora' 
+                                  AND id_empleado = '$id_empleado'";
+
+    $result_check_cita_empleado = mysqli_query($conn, $sql_check_cita_empleado);
+
+    if (mysqli_num_rows($result_check_cita_empleado) > 0) {
+        echo "<script>alert('Ya tienes una cita agendada a esta fecha y hora con el mismo empleado. Por favor, elige otra fecha u hora.');";
+        echo "window.location.href='./ver_citas.php';</script>";
+        exit;
+    }
+
+    $sql_check_cita_usuario = "SELECT * FROM citas 
+                               WHERE fecha = '$fecha' 
+                                 AND horario = '$hora' 
+                                 AND id_usuario = '$id_usuario'";
+
+    $result_check_cita_usuario = mysqli_query($conn, $sql_check_cita_usuario);
+
+    if (mysqli_num_rows($result_check_cita_usuario) > 0) {
+        echo "<script>alert('Ya tienes una cita agendada a esta fecha y hora con otro empleado. Por favor, elige otra fecha u hora.');";
+        echo "window.location.href='./ver_citas.php';</script>";
+        exit;
+    }
+
+    $sql_insert_cita = "INSERT INTO citas (id_usuario, id_servicio, fecha, horario, id_empleado, id_estaciones, descripcion, anticipo) 
+                        VALUES ('$id_usuario', '$id_servicio', '$fecha', '$hora', '$id_empleado', '$id_estaciones', '$descripcion', '$anticipo')";
 
     if (mysqli_query($conn, $sql_insert_cita)) {
-        // Cita agregada correctamente
-
-        // Envío de correo de notificación al administrador
+        
         $mail = new PHPMailer(true);
 
         try {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'cesarneri803@gmail.com'; // Correo del administrador
-            $mail->Password = 'kyoi thod ximj mipk'; // Contraseña del correo del administrador
+            $mail->Username = 'cesarneri803@gmail.com';
+            $mail->Password = 'kyoi thod ximj mipk';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
             $mail->setFrom('cesarneri803@gmail.com', 'Mantenimiento y Reparaciones');
-            $mail->addAddress('cesarneri803@gmail.com', 'Administrador'); // Correo del administrador
+            $mail->addAddress('cesarneri803@gmail.com', 'Administrador');
             $mail->isHTML(true);
             $mail->Subject = 'Nueva cita agendada';
-            
-            // Generar el enlace de inicio de sesión para el administrador
+
             $loginUrl = 'http://localhost/Mantenimiento-pagina-Web/src/admin/php/citas.php';
             $mail->Body = "Se ha agendado una nueva cita:<br><br>
                            Usuario: $id_usuario<br>
@@ -62,4 +110,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<script>window.location.href='./ver_citas.php';</script>";
 }
 ?>
-

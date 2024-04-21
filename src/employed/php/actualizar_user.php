@@ -35,6 +35,7 @@
     <?php
     if (isset($_POST['id_usuario']) && !empty($_POST['id_usuario'])) {
         require_once "../../MYSQL/conexion.php";
+        require_once "./superior.php";
         $id_usuario = $_POST['id_usuario'];
         $sql = "SELECT * FROM usuarios WHERE id_usuario = '$id_usuario'";
         $resultado = mysqli_query($conn, $sql);
@@ -66,16 +67,14 @@
                         <label for="telefono" class="form-label">Teléfono</label>
                         <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $fila['telefono']; ?>" required>
                     </div>
-                    <!-- Agregar script de confirmación antes de enviar el formulario -->
                     <button type="button" class="btn btn-primary" onclick="confirmUpdate()">Actualizar</button>
                 </form>
             </div>
             
-            <!-- Script para confirmar la actualización -->
             <script>
                 function confirmUpdate() {
                     if (confirm('¿Estás seguro de que deseas actualizar este usuario?')) {
-                        document.getElementById('updateForm').submit(); // Enviar el formulario si se confirma
+                        document.getElementById('updateForm').submit();
                     }
                 }
             </script>

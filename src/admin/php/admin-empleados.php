@@ -31,6 +31,7 @@
             LEFT JOIN admin_empleados a ON e.id_empleado = a.id_empleado";
     $resultado = mysqli_query($conn, $sql);
     ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <div class="container mt-4">
         <h1 class="mb-4">VENTANA DE ADMINISTRACION DE EMPLEADOS</h1>
@@ -72,11 +73,18 @@
                                     echo "<td>";
                                     echo "<form method='post' action='eliminar_empleado.php'>";
                                     echo "<input type='hidden' name='id_empleado' value='" . $fila['id_empleado'] . "'>";
-                                    echo "<button type='submit' name='eliminar_empleado' class='btn btn-danger eliminar mb-2' onclick='return confirm(\"¿Estás seguro de eliminar este empleado?\");'>Eliminar</button>";
+                                    echo "<button type='submit' name='eliminar_empleado' class='btn btn-danger eliminar mb-2' onclick='return confirm(\"¿Estás seguro de eliminar este empleado?\");'>";
+                                    echo "<i class='fas fa-trash'></i>";
+                                    echo "</button>";
                                     echo "</form>";
                                     echo "</td>";
                                     echo "<td>";
-                                    echo "<button class='btn btn-warning'>Actualizar</button>";
+                                    echo "<form method='get' action='actualizar_empleados.php'>";
+                                    echo "<input type='hidden' name='id_empleado' value='" . $fila['id_empleado'] . "'>";
+                                    echo "<button type='submit' name='actualizar-empleado' class='btn btn-info actualizar mb-2' onclick='return confirm(\"¿Estás seguro de actualizar este empleado?\");'>";
+                                    echo "<i class='fas fa-edit'></i>";
+                                    echo "</button>";
+                                    echo "</form>";
                                     echo "</td>";
                                     echo "</tr>";
                                 }
@@ -162,16 +170,14 @@
         $horaInicio = $_POST['hora_inicio'];
         $horaFin = $_POST['hora_fin'];
 
-        // Insertar empleado en la tabla empleados
         $sql = "INSERT INTO empleados (nombre, apellido_pat, apellido_mat, email, username, password, telefono) VALUES ('$nombre', '$apellidoP', '$apellidoM', '$correo', '$Username', '$contraseña', '$telefono')";
 
         $resultado = mysqli_query($conn, $sql);
 
         if ($resultado) {
-            // Obtener el ID del empleado insertado
+
             $idEmpleado = mysqli_insert_id($conn);
 
-            // Insertar los horarios en la tabla admin_empleados
             $sqlHorarios = "INSERT INTO admin_empleados (fecha_inicio, fecha_fin, hora_inicio, hora_fin, id_empleado) 
                             VALUES ('$fechaInicio', '$fechaFin', '$horaInicio', '$horaFin', '$idEmpleado')";
 
@@ -187,7 +193,6 @@
             echo "<p>Error al registrar empleado</p>";
         }
 
-        // Cerrar conexión
         mysqli_close($conn);
     }
 ?>

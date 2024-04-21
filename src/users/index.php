@@ -9,6 +9,13 @@
   <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 
   <title>Inicio</title>
+  <style>
+    .vr {
+      border-left: 1px solid #ffffff;
+      height: 40px;
+      margin: 0 10px;
+    }
+  </style>
 </head>
 
 <body>
@@ -27,36 +34,33 @@
             <a class="nav-link" href="./php/citas.php">Agendar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="./php/ver_citas.php">ver citas</a>
+            <a class="nav-link" href="./php/ver_citas.php">Ver citas</a>
           </li>
-         
         </ul>
         <div class="navbar-nav">
-          <div class="nav-item">
-            <?php
-            // Iniciar sesión (si no lo has hecho aún)
-            session_start();
+          <?php
+          session_start();
 
-            // Verificar si el nombre de usuario/empleado está almacenado en la variable de sesión
-            if (isset($_SESSION['username'])) {
-              $username = $_SESSION['username'];
-              echo "<a class='nav-link' href='./php/editar_usuario.php'>Bienvenido, $username</a>
-              </div>
-              <div class='nav-item'>
-    
-                <a class='nav-link' href='./../login/logout.php'>Cerrar sesión</a>
-              </div>
-              ";
-            } else {
-              echo "<a class='nav-link' href='./../login/sign.php'>Iniciar sesión</a>";
-            }
-            ?>
-         
+          if (isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+            echo "<div class='nav-item'>
+                    <a class='nav-link' href='./php/editar_usuario.php'>Bienvenido, $username</a>
+                  </div>
+                  <div class='vr'></div>
+                  <div class='nav-item'>
+                    <a class='nav-link' href='../login/logout.php'>Cerrar sesión</a>
+                  </div>";
+          } else {
+            echo "<div class='nav-item'>
+                    <a class='nav-link' href='./../login/sign.php'>Iniciar sesión</a>
+                  </div>";
+          }
+          ?>
         </div>
       </div>
-
     </div>
   </nav>
+
   <div class="fondo">
     <div class="container text-center">
       <div class="row fila ">
@@ -70,59 +74,39 @@
           <a href="./php/citas.php" class="btn btn-primary">Agendar Cita</a>
         </div>
       </div>
-
     </div>
-
   </div>
+
   <hr>
+
   <div class="container">
-    
-    <div class="row text-center ">
+    <div class="row text-center">
       <h1 class="">Nuestros Servicios</h1>
 
       <?php
-
       require_once('../MYSQL/conexion.php');
       $sql = "SELECT * FROM servicios LIMIT 4";
       $resultado = mysqli_query($conn, $sql);
 
       if (mysqli_num_rows($resultado) > 0) {
         while ($row = mysqli_fetch_array($resultado)) {
-
-
           echo "<div class='card mt-4'>";
           echo "<div class='image'>
-                <img src='../img/" . $row['imagen'] . "' class='image' alt='...'>
-    
-          </div>";
+                  <img src='../img/" . $row['imagen'] . "' class='image' alt='...'>
+                </div>";
           echo "<div class='content'>";
           echo "<a href='#'>";
-          echo "<span class='title'>"
-            . $row['nombre'] .
-            "</span>";
+          echo "<span class='title'>" . $row['nombre'] . "</span>";
           echo "</a>";
-
-          echo "<p class='desc'>"
-            . $row['descripcion'] .
-            "</p>";
-
-          echo "<a class='action' href='./php/citas.php'>";
-          echo "Agendar cita";
-          echo "<span aria-hidden='true'>";
-          echo "→";
-          echo "</span>";
-          echo "</a>";
-          echo " </div>";
+          echo "<p class='desc'>" . $row['descripcion'] . "</p>";
+          echo "<a class='action' href='./php/citas.php'>Agendar cita<span aria-hidden='true'>→</span></a>";
+          echo "</div>";
           echo "</div>";
         }
       }
-
       ?>
-
-
     </div>
   </div>
-
 
 </body>
 

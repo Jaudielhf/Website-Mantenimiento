@@ -2,12 +2,7 @@
 require_once "./superior.php";
 require_once "../../MYSQL/conexion.php";
 
-$resultado = null;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
-    $buscar = $_POST['buscar'];
-
-    $sql = "SELECT 
+$sql = "SELECT 
         c.id_cita,
         c.horario AS hora,
         c.fecha AS fechas,  
@@ -22,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
         u.telefono AS telefono_usuario,
         c.id_empleado, 
         e.nombre AS nombre_empleado, 
-        LEFT(c.descripcion, 256) AS descripcion_cita
+        LEFT(c.descripcion, 256) AS descripcion_cita,
+        c.anticipo
     FROM 
         mantenimiento.citas AS c
     JOIN 
@@ -31,17 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
         mantenimiento.usuarios AS u ON c.id_usuario = u.id_usuario
     JOIN 
         mantenimiento.empleados AS e ON c.id_empleado = e.id_empleado
-    WHERE 
-        c.id_cita = '$buscar' OR
-        c.fecha = '$buscar'
     ORDER BY 
         c.descripcion DESC 
     LIMIT 1000";
 
-    // Ejecutar consulta SQL
-    $resultado = mysqli_query($conn, $sql);
-}
-
+$resultado = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </head>
@@ -83,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
                             <th scope="col">Empleado</th>
                             <th scope="col">Servicio</th>
                             <th scope="col">Precio</th>
+                            <th scope="col">Anticipo</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Fecha de la cita</th>
                             <th scope="col">Hora de la cita</th>
@@ -101,18 +93,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
                                 echo "<td>" . $fila['telefono_usuario'] . "</td>";
                                 echo "<td>" . $fila['nombre_empleado'] . "</td>";
                                 echo "<td>" . $fila['nombre_servicio'] . "</td>";
-                                echo "<td>" . $fila['precio_servicio'] . "</td>";
+                                echo "<td>$" . $fila['precio_servicio'] . "</td>";
+                                echo "<td>" . $fila['anticipo'] . "</td>";
                                 echo "<td>" . $fila['descripcion_cita'] . "</td>";
                                 echo "<td>" . $fila['fechas'] . "</td>";
                                 echo "<td>" . $fila['hora'] . "</td>";
                                 echo "<td>";
                                 echo "<form method='post' action='confirmar_cita.php'>";
                                 echo "<input type='hidden' name='id_cita' value='" . $fila['id_cita'] . "'>";
-                                echo "<button type='submit' name='confirmar_cita' class='btn btn-success'>Confirmar</button>";
+                                echo "<input type='hidden' name='anticipo' value='" . $fila['anticipo'] . "'>";
+                                echo "<button type='submit' name='confirmar_cita' class='btn btn-success confirmar-btn' data-cita-id='" . $fila['id_cita'] . "'>";
+                                echo "<i class='fas fa-check'></i>";
+                                echo "</button>";
                                 echo "</form>";
                                 echo "<form method='post' action='eliminar_cita.php'>";
                                 echo "<input type='hidden' name='id_cita' value='" . $fila['id_cita'] . "'>";
-                                echo "<button type='submit' name='eliminar_cita' class='btn btn-danger eliminar mb-2' onclick='return confirm(\"¿Estás seguro de eliminar esta cita?\");'>Eliminar</button>";
+                                echo "<button type='submit' name='eliminar_cita' class='btn btn-danger eliminar mb-2' onclick='return confirm(\"¿Estás seguro de eliminar esta cita?\");'>";
+                                echo "<i class='fas fa-trash-alt'></i>";
+                                echo "</button>";
                                 echo "</form>";
                                 echo "</td>";
                                 echo "</tr>";
@@ -126,6 +124,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const confirmButtons = document.querySelectorAll('.confirmar-btn');
+
+            confirmButtons.forEach(button => {
+                const citaId = button.dataset.citaId;
+                const confirmado = localStorage.getItem(`confirmado_${citaId}`);
+
+                if (confirmado === 'true') {
+                    button.style.display = 'none';
+                }
+
+                button.addEventListener('click', function() {
+                    localStorage.setItem(`confirmado_${citaId}`, 'true');
+                    button.style.display = 'none';
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

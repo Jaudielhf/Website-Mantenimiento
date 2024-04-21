@@ -1,11 +1,8 @@
 <?php
-// Verificar si se recibió un ID válido por parámetro GET
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id_servicio = $_GET['id'];
 
-    // Establecer conexión con la base de datos
     require_once "../../MYSQL/conexion.php";
-
     // Verificar si se envió el formulario para actualizar el servicio
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Recibir y sanitizar los datos del formulario
@@ -64,9 +61,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar Servicio</title>
+    <title>Actualizar Usuario</title>
+    <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
+    <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -129,8 +128,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
     </style>
+    <?php
+        require_once "./superior.php";
+        ?>
 </head>
-
 <body>
     <div class="container">
         <h1>Actualizar Servicio</h1>

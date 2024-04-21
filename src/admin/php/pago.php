@@ -20,23 +20,21 @@
                 <div class="col">
                 <div id="paypal-button-container"></div>
 
-<!-- Include the PayPal JavaScript SDK -->
 <script src="https://www.paypal.com/sdk/js?client-id=AWkwn-ZpT6B30b4VO--Hw0vxxfAjPiAaa390-0-FSFTdQF6YZUVbJeXcxGOhzkMrrEIwstluGw7Lu_d9&currency=MXN"></script>
 
 <script>
-    // Render the PayPal button into #paypal-button-container
+
     paypal.Buttons({
             style:{
                 color :'blue',
                 shape : 'pill'
             },
-        // Call your server to set up the transaction
         createOrder: function(data, actions) {
            return actions.order.create({
             purchase_units: [{
                 amount: {
                     currency_code: 'MXN',
-                    value: '150.00'
+                    value: '100.00'
                 }
             }]
            })

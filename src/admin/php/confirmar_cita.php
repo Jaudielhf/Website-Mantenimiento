@@ -1,16 +1,16 @@
 <?php
 // Establecer conexión con la base de datos
 require_once "../../MYSQL/conexion.php";
-
-require_once "../../MYSQL/conexion.php";
+require_once "../../MYSQL/conexion.php"; // Doble inclusión, puede removerse
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Verifica si se recibió una solicitud POST
+// Verifica si se recibió una solicitud POST y se ha enviado el parámetro 'confirmar_cita'
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_cita'])) {
+    // Obtener el ID de la cita desde el formulario
     $id_cita = $_POST['id_cita'];
 
     // Realiza la consulta para obtener los detalles de la cita
@@ -29,7 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_cita'])) {
                 u.telefono AS telefono_usuario,
                 c.id_empleado, 
                 e.nombre AS nombre_empleado, 
-                LEFT(c.descripcion, 256) AS descripcion_cita
+                LEFT(c.descripcion, 256) AS descripcion_cita,
+                c.anticipo
             FROM 
                 mantenimiento.citas AS c
             JOIN 
@@ -53,30 +54,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_cita'])) {
         $hora_cita = $fila['hora'];
         $nombre_servicio = $fila['nombre_servicio'];
         $descripcion_cita = $fila['descripcion_cita'];
+        $anticipo = $fila['anticipo'];
 
         // Configura PHPMailer para enviar el correo de confirmación
         $mail = new PHPMailer(true);
 
         try {
-            // Configuración del servidor SMTP (usando Gmail como ejemplo)
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'cesarneri803@gmail.com'; // Tu dirección de correo de Gmail
-            $mail->Password = 'kyoi thod ximj mipk'; // Tu contraseña de Gmail
+            $mail->Username = 'cesarneri803@gmail.com';
+            $mail->Password = 'kyoi thod ximj mipk';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            // Configurar remitente y destinatario
             $mail->setFrom('mantenimientoyreparaciones123@gmail.com', 'Mantenimiento y Reparaciones');
             $mail->addAddress($email_usuario, $nombre_usuario);
 
-            // Contenido del correo de confirmación
             $mail->isHTML(true);
             $mail->Subject = 'Confirmación de cita';
-            $mail->Body = "Estimado $nombre_usuario,<br><br>Su cita para el servicio '$nombre_servicio' ha sido confirmada.<br>Fecha: $fecha_cita<br>Hora: $hora_cita<br>Descripción: $descripcion_cita<br><br>Gracias por confiar en nosotros.";
+            $mail->Body = "Estimado $nombre_usuario,<br><br>Su cita para el servicio '$nombre_servicio' ha sido confirmada.<br>Fecha: $fecha_cita<br>Hora: $hora_cita<br>Descripción: $descripcion_cita";
 
-            // Enviar correo
+            if ($anticipo == 'si') {
+                $mail->Body .= "<br><br>Tu anticipo es de: 100 MXN
+                <br><br>LLeva tu ticket para comprobar el pago de tu anticipo";
+            }
+
+            $mail->Body .= "<br><br>Gracias por confiar en nosotros.";
+
             $mail->send();
 
             echo "Correo de confirmación enviado a $email_usuario";

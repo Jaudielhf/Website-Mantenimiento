@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Cita</title>
+    <title>Citas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
+    <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+</head>
+<?php
+require_once "./superior_usr.php";
+?>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,7 +81,6 @@
                         <label for="id_servicio">Servicio:</label>
                         <select name="id_servicio">
                             <?php
-                            // Obtener todos los servicios disponibles
                             $sql_servicios = "SELECT * FROM servicios";
                             $resultado_servicios = mysqli_query($conn, $sql_servicios);
 
@@ -92,6 +98,9 @@
 
                         <label for="horario">Hora:</label>
                         <input type="text" name="horario" value="<?php echo $cita['horario']; ?>">
+
+                        <label for="horario">Anticipo:</label>
+                        <input type="text" name="anticipo" value="<?php echo $cita['anticipo']; ?>" readonly>
 
                         <label for="descripcion">Descripción:</label>
                         <textarea name="descripcion"><?php echo $cita['descripcion']; ?></textarea>
