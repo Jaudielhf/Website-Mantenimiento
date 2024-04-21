@@ -1,5 +1,5 @@
 <?php
-require_once "./superior.php";
+
 require_once "../../MYSQL/conexion.php";
 
 $sql = "SELECT 
@@ -43,18 +43,25 @@ $resultado = mysqli_query($conn, $sql);
     <title>Citas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="./../../../bootstrap-5.3.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
     <script src="./../../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 </head>
 
 <body>
+    <?php
+    require_once "./superior.php";
+    ?>
     <div class="container mt-4">
-        <h1>VENTANA DE ADMINISTRACION DE CITAS</h1>
+        <h1>VENTANA DE ADMINISTRACIÓN DE CITAS</h1>
+        
         <div class="row">
             <div class="col-md-6">
-                <nav class="navbar bg-body-tertiary">
+            <nav class=" bg-body-tertiary ">
                     <div class="container-fluid">
-                        <form class="d-flex" method="post" action="citas.php">
-                            <input class="form-control me-2" type="search" placeholder="Buscar por ID de Cita o Fecha" aria-label="Search" name="buscar">
+                        <form class="d-flex" role="search" method="post" action="citas.php">
+
+                            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="id_cita">
                             <button class="btn btn-outline-success" type="submit">Buscar</button>
                         </form>
                     </div>
@@ -123,7 +130,7 @@ $resultado = mysqli_query($conn, $sql);
                 </table>
             </div>
         </div>
-    </div>
+        </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -144,6 +151,10 @@ $resultado = mysqli_query($conn, $sql);
             });
         });
     </script>
+    
+    <?php
+    require_once "./inferior.php";
+    ?>
 </body>
 
 </html>

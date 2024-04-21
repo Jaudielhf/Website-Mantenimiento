@@ -1,94 +1,115 @@
-.fondo{
-  
-    padding: 150px; 
-    position: relative;
-   
-    
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa; /* Fondo gris claro */
+  color: #333; /* Color de texto principal */
+  margin: 0;
+  padding: 0;
 }
-.fondo::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: url('./../../img/home_1_slider_4.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 60vh;
-    width: 100%;
-    padding: 100px;
-    filter: brightness(0.7);
-    z-index: -1; 
+
+.navbar {
+  background-color: #343a40 !important; /* Fondo gris oscuro para la barra de navegación de Bootstrap */
+  padding: 2%;
 }
-.fila{
-    color: white;
-    text-align: center;
-    font-weight: 200;
-    p{
-        font-size: 20px;
-        font-style: oblique;
-    }
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #fff !important; /* Color de texto blanco para los elementos de navegación */
+}
+
+.navbar-toggler-icon {
+  color: #fff !important; /* Color del icono del botón de menú */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.fondo {
+  padding: 100px 0; /* Reducir el espacio superior e inferior de la imagen de fondo */
+  position: relative;
+}
+
+.fondo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url('./../../img/home_1_slider_4.jpg'); /* Imagen de fondo */
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.7; /* Opacidad del fondo */
+  z-index: -1;
+}
+.fondo-texto {
+  color: #000000; /* Cambiar el color del texto a un gris oscuro */
+  padding: 20px; /* Agregar un espacio interior para el texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Agregar un sombreado detrás del texto */
+}
+.fila {
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.fila p {
+  font-size: 20px;
+  font-style: italic;
 }
 
 .card {
-    max-width: 300px;
-    border-radius: 0.5rem;
-    background-color: #fff;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    border: 1px solid black;
-    margin: 10px;
-  }
-  
-  .card a {
-    text-decoration: none
-  }
-  
-  .content {
-    padding: 1.1rem;
-  }
-  
-  .image {
-    margin-top: 5px;
-    object-fit: cover;
-    width: 100%;
-    height: 150px;
-    background-color: rgb(239, 205, 255);
-  }
-  
-  .title {
-    color: #111827;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-    font-weight: 600;
-  }
-  
-  .desc {
-    margin-top: 0.5rem;
-    color: #6B7280;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-  
-  .action {
-    display: inline-flex;
-    margin-top: 1rem;
-    color: #ffffff;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 500;
-    align-items: center;
-    gap: 0.25rem;
-    background-color: #2563EB;
-    padding: 4px 8px;
-    border-radius: 4px;
-  }
-  
-  .action span {
-    transition: .3s ease;
-  }
-  
-  .action:hover span {
-    transform: translateX(4px);
-  }
-  
+  max-width: calc(25% - 40px); /* Calculamos el ancho para adaptarse a 4 cartas en una fila */
+  border-radius: 8px;
+  background-color: #fff; /* Fondo blanco para las tarjetas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  margin: 20px 10px; /* Margen ajustado */
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card .image img {
+  width: 100%;
+  height: 150px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  object-fit: cover;
+}
+
+.card .content {
+  padding: 20px;
+}
+
+.card .title {
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card .desc {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.card .action {
+  display: inline-block;
+  color: #fff;
+  background-color: #007bff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.card .action:hover {
+  background-color: #0056b3;
+}

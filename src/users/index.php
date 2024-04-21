@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../bootstrap-5.3.3-dist/css/bootstrap.css">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Agregamos FontAwesome para los iconos -->
   <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
 
   <title>Inicio</title>
@@ -34,8 +35,9 @@
             <a class="nav-link" href="./php/citas.php">Agendar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./php/ver_citas.php">Ver citas</a>
+            <a class="nav-link"  href="./php/ver_citas.php">ver citas</a>
           </li>
+         
         </ul>
         <div class="navbar-nav">
           <?php
@@ -64,11 +66,13 @@
   <div class="fondo">
     <div class="container text-center">
       <div class="row fila ">
-        <div class="col-6">
-          <h1 class="display-1">AGENDE SU CITA </h1>
-        </div>
-        <div class="col-8">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam esse a sapiente, praesentium quae dignissimos ullam deleniti, alias repellendus laudantium iusto corporis impedit sunt dolorem aut voluptatum, officia itaque dicta.</p>
+        <div class="fondo-texto">
+          <div class="col-6">
+            <h1 class="display-1">AGENDE SU CITA </h1>
+          </div>
+          <div class="col-8">
+            <p>Bienvenido a nuestra plataforma de agendamiento de citas para reparación y mantenimiento de equipos de cómputo. En nuestra página, puedes fácilmente programar citas en diferentes ubicaciones, obtener información sobre nuestros servicios y ver tus citas programadas. Nuestro equipo de expertos está listo para atenderte y resolver cualquier problema que tengas con tus equipos informáticos. ¡Agenda tu cita hoy mismo y deja que nosotros nos encarguemos del resto!</p>
+          </div>
         </div>
         <div class="col-12">
           <a href="./php/citas.php" class="btn btn-primary">Agendar Cita</a>
@@ -108,6 +112,9 @@
     </div>
   </div>
 
+  <?php
+  require_once("./php/inferior.php");
+  ?>
 </body>
 
 </html>

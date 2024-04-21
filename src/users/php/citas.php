@@ -67,6 +67,15 @@
                                     <option value="15:00">03:00 PM</option>
                                     <option value="17:00">05:00 PM</option>
                                 </select>
+                                <select class="form-select" id="hora" name="hora" required>
+                                    <option value="" selected>Selecciona una hora</option>
+                                    <option value="09:00">07:00 AM</option>
+                                    <option value="10:00">09:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="13:00">01:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="17:00">05:00 PM</option>
+                                </select>
                             </div>
                             </div>
                             <div class="col-4">
@@ -116,6 +125,11 @@
                                    INNER JOIN admin_empleados ae ON e.id_empleado = ae.id_empleado
                                    WHERE '$fecha_actual' BETWEEN ae.fecha_inicio AND ae.fecha_fin
                                    AND '$hora_actual' BETWEEN ae.hora_inicio AND ae.hora_fin";
+                                    $sql = "SELECT e.id_empleado, e.nombre
+                                   FROM empleados e
+                                   INNER JOIN admin_empleados ae ON e.id_empleado = ae.id_empleado
+                                   WHERE '$fecha_actual' BETWEEN ae.fecha_inicio AND ae.fecha_fin
+                                   AND '$hora_actual' BETWEEN ae.hora_inicio AND ae.hora_fin";
 
                                     $resultado = mysqli_query($conn, $sql);
                                     ?>
@@ -143,8 +157,52 @@
                                     <option selected name="anticipo">Selecciona una opción</option>
                                     <option value="Si">Sí</option>
                                     <option value="No">No</option>
+                                    $resultado = mysqli_query($conn, $sql);
+                                    ?>
+                                    <select class="form-select" aria-label="Default select example" name="empleado" required>
+                                        <option selected>Seleccione un empleado para la cita</option>
+                                        <?php
+                                        if (mysqli_num_rows($resultado) > 0) {
+                                            while ($fila = mysqli_fetch_array($resultado)) {
+                                                echo "<option value='" . $fila['id_empleado'] . "'>" . $fila['nombre'] . "</option>";
+                                            }
+                                        } else {
+                                            echo '<option value="" disabled>No hay empleados disponibles en este momento.</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-floating">
+                                <textarea class="form-control" name="descripcion" placeholder="Escriba una breve descripción para la cita" id="floatingTextarea2" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Escriba una breve descripción para la cita</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="Anticipo">¿Desea realizar un anticipo?</label>
+                                <select id="validarOpciones" class="form-select" aria-label="Default select example" name="Validar" required onchange="PagoAnticipo(this);">
+                                    <option selected>Selecciona una opción</option>
+                                    <option value="Si">Sí</option>
+                                    <option value="No">No</option>
                                 </select>
                             </div>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Agendar cita
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">¡Atención!</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Esta a punto de agendar una cita, antes de enviar, favor de verificar sus datos para mejorar la experiencia en la estación de servicio seleccionada.
+                                            </div>
+                                            <div class="modal-footer" id="agendar">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-outline-success">Enviar</button>
+                                            </div>
                             <div class="d-grid gap-2 d-md-block">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Agendar cita
@@ -172,6 +230,11 @@
                     } else {
                         echo "
                         <div class='d-grid gap-2 d-md-block'>
+                        </form>
+                    <?php
+                    } else {
+                        echo "
+                        <div class='d-grid gap-2 d-md-block'>
                             <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>
                                 Agendar cita
                             </button>
@@ -180,9 +243,11 @@
                                     <div class='modal-content'>
                                         <div class='modal-header'>
                                             <h1 class='modal-title fs-5' id='exampleModalLabel'>¡Atención!</h1>
+                                            <h1 class='modal-title fs-5' id='exampleModalLabel'>¡Atención!</h1>
                                             <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                                         </div>
                                         <div class='modal-body'>
+                                            Para agendar una cita, es necesario tener una cuenta en el sistema. ¡Regístrate, es gratis!
                                             Para agendar una cita, es necesario tener una cuenta en el sistema. ¡Regístrate, es gratis!
                                         </div>
                                         <div class='modal-footer'>
@@ -195,9 +260,13 @@
                         </div>";
                     }
                     ?>
+                        </div>";
+                    }
+                    ?>
                 </div>
             </div>
             <div class="col-3 text-center mt-5">
+                <h3>AQUÍ PUEDE REALIZAR SU ANTICIPO DE LA CITA</h3>
                 <h3>AQUÍ PUEDE REALIZAR SU ANTICIPO DE LA CITA</h3>
                 <div id="paypal-button-container"></div>
                 <script>
@@ -276,9 +345,85 @@
                             PagoAnticipoNoRequerido();
                         }
                     }
+                    function PagoAnticipoNoRequerido() {
+                        console.log("Pago anticipo no requerido seleccionado");
+                        document.getElementById("validarOpciones").setAttribute("onchange", "RealizarAnticipo();");
+                        document.getElementById("agendar").innerHTML = `
+                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                            <button type='submit' class='btn btn-outline-success'>Enviar</button>
+                        `;
+                        document.getElementById("paypal-button-container").innerHTML = "";
+                    }
+
+                    function PagoAnticipo(selectElement) {
+                        var realizarAnticipo = selectElement.value;
+                        if (realizarAnticipo === "Si") {
+                            var servicioId = document.getElementById("AnticipoServicio").value;
+                            if (servicioId) {
+                                fetch('obtener_anticipo.php', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                    },
+                                    body: 'servicio_id=' + encodeURIComponent(servicioId)
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Error al obtener el anticipo');
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    var anticipo = parseFloat(data.anticipo);
+                                    if (!isNaN(anticipo)) {
+                                        paypal.Buttons({
+                                            style: {
+                                                color: 'blue',
+                                                shape: 'pill'
+                                            },
+                                            createOrder: function(data, actions) {
+                                                return actions.order.create({
+                                                    purchase_units: [{
+                                                        amount: {
+                                                            currency_code: 'MXN',
+                                                            value: anticipo.toFixed(2)
+                                                        }
+                                                    }]
+                                                })
+                                            },
+                                            onApprove: function(data, actions) {
+                                                actions.order.capture().then(function(detalles) {
+                                                    if (detalles.status == "COMPLETED") {
+                                                        var enviarCita = document.getElementById("agendar");
+                                                        var codigoHtml = `
+                                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                                            <button type='submit' class='btn btn-outline-success'>Enviar</button>
+                                                        `;
+                                                        enviarCita.innerHTML = codigoHtml;
+                                                    }
+                                                });
+                                            },
+                                            onCancel: function(data) {
+                                                alert("Cancelado");
+                                                console.log(data);
+                                            }
+                                        }).render('#paypal-button-container');
+                                    } else {
+                                        console.error('El anticipo recibido no es un número válido:', data.anticipo);
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error al obtener el anticipo:', error.message);
+                                });
+                            }
+                        } else if (realizarAnticipo == "No") {
+                            PagoAnticipoNoRequerido();
+                        }
+                    }
                 </script>
             </div>
         </div>
+    </div>
     </div>
 </body>
 

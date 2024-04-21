@@ -1,4 +1,4 @@
-<div class="container-fluid">
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="../dashboard-admin.php">Inicio</a>
@@ -20,6 +20,7 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a href="./Estaciones.php" class="dropdown-item">Estaciones</a></li>
                             <li><a class="dropdown-item" href="./servicios.php">Servicios</a></li>
+                            <li><a href="./Estaciones.php" class="dropdown-item">Estaciones</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -32,4 +33,4 @@
             </div>
         </div>
     </nav>
-</div>
+

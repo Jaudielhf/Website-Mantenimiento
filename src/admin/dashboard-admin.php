@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap-5.3.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
     <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
-    <title>Inicio</title>
+    <title>Inicio | ADMIN</title>
 </head>
 
 <body>
 
-    <div class="container-fluid">
+    
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="./dashboard-admin.php">Inicio</a>
@@ -23,7 +24,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="./php/citas.php">Citas</a>
+                            <a class="nav-link" href="./php/citas_completo.php">Citas</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,14 +49,15 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
+        <div class="container mb-5 ">
             <div class="row mt-4 text-center">
                 <H1>VENTANA DE ADMINISTRACIÓN</H1>
                 <div class="col mt-5">
 
 
-                    <div class="container">
+                    <div class="container d-flex">
                         <div class="row">
+                            <div class="row">
                             <div class="col">
                                 <article class="card">
                                     <div class="card-int">
@@ -68,7 +70,7 @@
                                         <div class="card-data">
                                             <p class="title">Administrar Usuarios
                                             </p>
-                                            <p>En esta seccion podra administrar a los usuarios registrados en la pagina.</p>
+                                            <p>En esta sección podra administrar a los usuarios registrados en la pagina.</p>
                                             <button onclick="location.href='./php/admin-user.php'" class="button">Usuarios</button>
                                         </div>
                                     </div>
@@ -88,7 +90,7 @@
                                         <div class="card-data">
                                             <p class="title">Administrar Empleados
                                             </p>
-                                            <p>Administracion de los empleados registrados en la pagina.</p>
+                                            <p>Administración de los empleados registrados en la pagina.</p>
                                             <button onclick="location.href='./php/admin-empleados.php'" class="button">Empleados</button>
                                         </div>
                                     </div>
@@ -106,13 +108,15 @@
                                         <div class="card-data">
                                             <p class="title">Administrar Servicios
                                             </p>
-                                            <p>En esta seccion podra administrar los servicios registrados en la pagina.</p>
+                                            <p>En esta sección podra administrar los servicios registrados en la pagina.</p>
                                             <button onclick="location.href='./php/servicios.php'" class="button">Servicios</button>
                                         </div>
                                     </div>
                                 </article>
                             </div>
-                            <div class="col">
+                            </div>
+                            <div class="row">
+                            <div class="col mt-4">
                                 <article class="card">
                                     <div class="card-int">
                                         <span class="card__span">Pago</span>
@@ -125,7 +129,7 @@
                                         <div class="card-data">
                                             <p class="title">Realizar Pago
                                             </p>
-                                            <p>En esta seccion podra realizar el pago al servicio</p>
+                                            <p>En esta sección podra realizar el pago al servicio</p>
                                             <button onclick="location.href='./php/pago.php'" class="button">Empleados</button>
                                         </div>
                                     </div>
@@ -134,44 +138,33 @@
                             <div class="col mt-4">
                                 <article class="card">
                                     <div class="card-int">
-                                        <span class="card__span">Citas</span>
+                                        <span class="card__span">Pago</span>
                                         <div class="img">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="100%" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
-                                                <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0" />
-                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
-                                                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="100%" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
+                                                <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" />
+                                                <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5" />
                                             </svg>
                                         </div>
                                         <div class="card-data">
                                             <p class="title">Administrar Citas
                                             </p>
-                                            <p>En esta seccion podra administrar las Citas registrados en la pagina.</p>
+                                            <p>En esta sección podra administrar las Citas registrados en la pagina.</p>
                                             <button onclick="location.href='./php/citas_completo.php'" class="button">Citas</button>
                                         </div>
                                     </div>
 
                                 </article>
                             </div>
-
-                            <div class="col mt-4">
-                                <article class="card">
-
-                                    <div class="card-int">
-                                        <span class="card__span">Estaciones</span>
-                                        <div class="img">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="100%" fill="currentColor" class="bi bi-pc-display" viewBox="0 0 16 16">
-                                                <path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0M9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5M1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2z" />
-                                            </svg>
-                                        </div>
                                         <div class="card-data">
                                             <p class="title">Administrar Estaciones
                                             </p>
-                                            <p>En esta seccion podra administrar las estaciones registrados en la pagina.</p>
-                                            <button onclick="location.href='./php/Estaciones.php'" class="button">Estaciones</button>
+                                            <p>En esta seccion podra administrar las Citas registrados en la pagina.</p>
+                                            <button onclick="location.href='./php/citas.php'" class="button">Citas</button>
                                         </div>
+                                    </div>
                                 </article>
                             </div>
-
+                            </div>
                         </div>
                     </div>
 
@@ -180,8 +173,9 @@
                 </div>
             </div>
         </div>
-
-    </div>
+        <?php
+        require_once("./php/inferior.php");
+        ?>
 </body>
 
 </html>
